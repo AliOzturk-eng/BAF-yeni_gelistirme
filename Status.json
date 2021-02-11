@@ -1,0 +1,52 @@
+[
+ {
+   "Status": 0,
+   "Description": "STOK",
+   "IsIdled": 1
+ },
+ {
+   "Status": 10,
+   "Description": "SERBEST",
+   "IsIdled": 1
+ },
+ {
+   "Status": 20,
+   "Description": "YUKLU",
+   "IsIdled": 0
+ },
+ {
+   "Status": 30,
+   "Description": "BAKIMDA",
+   "IsIdled": 0
+ },
+ {
+   "Status": 40,
+   "Description": "BAKIMBITTI",
+   "IsIdled": 1
+ },
+ {
+   "Status": 50,
+   "Description": "TORNADA",
+   "IsIdled": 0
+ },
+ {
+   "Status": 60,
+   "Description": "TORNADANGELDI",
+   "IsIdled": 1
+ },
+ {
+   "Status": 70,
+   "Description": "KILITLI",
+   "IsIdled": 0
+ },
+ {
+   "Status": 80,
+   "Description": "BOSALTILDI",
+   "IsIdled": 1
+ },
+ {
+   "Status": 255,
+   "Description": "HURDA",
+   "IsIdled": 0
+ }
+]

@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAnnealingEquipments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="bytAnnealingEquipmentType" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAnnealingEquipmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAnnealingEquipmentsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAnnealingEstimatedProcessEnding">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAnnealingEstimatedProcessEndingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAnnealingEstimatedProcessEndingResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAnnealingStateRecords">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAnnealingStateRecordsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAnnealingStateRecordsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAnnealingWarehouseBatchesForLogistic">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAnnealingWarehouseBatchesForLogisticResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAnnealingWarehouseBatchesForLogisticResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSsysEquipmentList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSsysEquipmentListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSsysEquipmentListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSsysBafZoneDefinitions">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSsysBafZoneDefinitionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSsysBafZoneDefinitionsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateSsysWorkOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="intVincId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPartiNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strObjeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strObjeTipi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strEmirTipi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAlHat" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strBrkHat" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAciklama" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateSsysWorkOrderResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAnnealingEquipmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAnnealingEquipments" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEquipmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAnnealingEquipmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEstimatedProcessEndingSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAnnealingEstimatedProcessEnding" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEstimatedProcessEndingSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAnnealingEstimatedProcessEndingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingStateRecordsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAnnealingStateRecords" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingStateRecordsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAnnealingStateRecordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingWarehouseBatchesForLogisticSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAnnealingWarehouseBatchesForLogistic" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingWarehouseBatchesForLogisticSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAnnealingWarehouseBatchesForLogisticResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysEquipmentListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSsysEquipmentList" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysEquipmentListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSsysEquipmentListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBafZoneDefinitionsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSsysBafZoneDefinitions" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBafZoneDefinitionsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSsysBafZoneDefinitionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateSsysWorkOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateSsysWorkOrder" />
+  </wsdl:message>
+  <wsdl:message name="CreateSsysWorkOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateSsysWorkOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEquipmentsHttpGetIn">
+    <wsdl:part name="bytAnnealingEquipmentType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEquipmentsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEstimatedProcessEndingHttpGetIn" />
+  <wsdl:message name="GetAnnealingEstimatedProcessEndingHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingStateRecordsHttpGetIn" />
+  <wsdl:message name="GetAnnealingStateRecordsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingWarehouseBatchesForLogisticHttpGetIn" />
+  <wsdl:message name="GetAnnealingWarehouseBatchesForLogisticHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysEquipmentListHttpGetIn" />
+  <wsdl:message name="GetSsysEquipmentListHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBafZoneDefinitionsHttpGetIn" />
+  <wsdl:message name="GetSsysBafZoneDefinitionsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="CreateSsysWorkOrderHttpGetIn">
+    <wsdl:part name="intVincId" type="s:string" />
+    <wsdl:part name="strPartiNo" type="s:string" />
+    <wsdl:part name="strObjeNo" type="s:string" />
+    <wsdl:part name="strObjeTipi" type="s:string" />
+    <wsdl:part name="strEmirTipi" type="s:string" />
+    <wsdl:part name="strAlHat" type="s:string" />
+    <wsdl:part name="strBrkHat" type="s:string" />
+    <wsdl:part name="strAciklama" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateSsysWorkOrderHttpGetOut" />
+  <wsdl:message name="GetAnnealingEquipmentsHttpPostIn">
+    <wsdl:part name="bytAnnealingEquipmentType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEquipmentsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingEstimatedProcessEndingHttpPostIn" />
+  <wsdl:message name="GetAnnealingEstimatedProcessEndingHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingStateRecordsHttpPostIn" />
+  <wsdl:message name="GetAnnealingStateRecordsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnealingWarehouseBatchesForLogisticHttpPostIn" />
+  <wsdl:message name="GetAnnealingWarehouseBatchesForLogisticHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysEquipmentListHttpPostIn" />
+  <wsdl:message name="GetSsysEquipmentListHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBafZoneDefinitionsHttpPostIn" />
+  <wsdl:message name="GetSsysBafZoneDefinitionsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="CreateSsysWorkOrderHttpPostIn">
+    <wsdl:part name="intVincId" type="s:string" />
+    <wsdl:part name="strPartiNo" type="s:string" />
+    <wsdl:part name="strObjeNo" type="s:string" />
+    <wsdl:part name="strObjeTipi" type="s:string" />
+    <wsdl:part name="strEmirTipi" type="s:string" />
+    <wsdl:part name="strAlHat" type="s:string" />
+    <wsdl:part name="strBrkHat" type="s:string" />
+    <wsdl:part name="strAciklama" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateSsysWorkOrderHttpPostOut" />
+  <wsdl:portType name="BAF_WebServiceSoap">
+    <wsdl:operation name="GetAnnealingEquipments">
+      <wsdl:input message="tns:GetAnnealingEquipmentsSoapIn" />
+      <wsdl:output message="tns:GetAnnealingEquipmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingEstimatedProcessEnding">
+      <wsdl:input message="tns:GetAnnealingEstimatedProcessEndingSoapIn" />
+      <wsdl:output message="tns:GetAnnealingEstimatedProcessEndingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingStateRecords">
+      <wsdl:input message="tns:GetAnnealingStateRecordsSoapIn" />
+      <wsdl:output message="tns:GetAnnealingStateRecordsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingWarehouseBatchesForLogistic">
+      <wsdl:input message="tns:GetAnnealingWarehouseBatchesForLogisticSoapIn" />
+      <wsdl:output message="tns:GetAnnealingWarehouseBatchesForLogisticSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysEquipmentList">
+      <wsdl:input message="tns:GetSsysEquipmentListSoapIn" />
+      <wsdl:output message="tns:GetSsysEquipmentListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBafZoneDefinitions">
+      <wsdl:input message="tns:GetSsysBafZoneDefinitionsSoapIn" />
+      <wsdl:output message="tns:GetSsysBafZoneDefinitionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSsysWorkOrder">
+      <wsdl:input message="tns:CreateSsysWorkOrderSoapIn" />
+      <wsdl:output message="tns:CreateSsysWorkOrderSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="BAF_WebServiceHttpGet">
+    <wsdl:operation name="GetAnnealingEquipments">
+      <wsdl:input message="tns:GetAnnealingEquipmentsHttpGetIn" />
+      <wsdl:output message="tns:GetAnnealingEquipmentsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingEstimatedProcessEnding">
+      <wsdl:input message="tns:GetAnnealingEstimatedProcessEndingHttpGetIn" />
+      <wsdl:output message="tns:GetAnnealingEstimatedProcessEndingHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingStateRecords">
+      <wsdl:input message="tns:GetAnnealingStateRecordsHttpGetIn" />
+      <wsdl:output message="tns:GetAnnealingStateRecordsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingWarehouseBatchesForLogistic">
+      <wsdl:input message="tns:GetAnnealingWarehouseBatchesForLogisticHttpGetIn" />
+      <wsdl:output message="tns:GetAnnealingWarehouseBatchesForLogisticHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysEquipmentList">
+      <wsdl:input message="tns:GetSsysEquipmentListHttpGetIn" />
+      <wsdl:output message="tns:GetSsysEquipmentListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBafZoneDefinitions">
+      <wsdl:input message="tns:GetSsysBafZoneDefinitionsHttpGetIn" />
+      <wsdl:output message="tns:GetSsysBafZoneDefinitionsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSsysWorkOrder">
+      <wsdl:input message="tns:CreateSsysWorkOrderHttpGetIn" />
+      <wsdl:output message="tns:CreateSsysWorkOrderHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="BAF_WebServiceHttpPost">
+    <wsdl:operation name="GetAnnealingEquipments">
+      <wsdl:input message="tns:GetAnnealingEquipmentsHttpPostIn" />
+      <wsdl:output message="tns:GetAnnealingEquipmentsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingEstimatedProcessEnding">
+      <wsdl:input message="tns:GetAnnealingEstimatedProcessEndingHttpPostIn" />
+      <wsdl:output message="tns:GetAnnealingEstimatedProcessEndingHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingStateRecords">
+      <wsdl:input message="tns:GetAnnealingStateRecordsHttpPostIn" />
+      <wsdl:output message="tns:GetAnnealingStateRecordsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingWarehouseBatchesForLogistic">
+      <wsdl:input message="tns:GetAnnealingWarehouseBatchesForLogisticHttpPostIn" />
+      <wsdl:output message="tns:GetAnnealingWarehouseBatchesForLogisticHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysEquipmentList">
+      <wsdl:input message="tns:GetSsysEquipmentListHttpPostIn" />
+      <wsdl:output message="tns:GetSsysEquipmentListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBafZoneDefinitions">
+      <wsdl:input message="tns:GetSsysBafZoneDefinitionsHttpPostIn" />
+      <wsdl:output message="tns:GetSsysBafZoneDefinitionsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSsysWorkOrder">
+      <wsdl:input message="tns:CreateSsysWorkOrderHttpPostIn" />
+      <wsdl:output message="tns:CreateSsysWorkOrderHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BAF_WebServiceSoap" type="tns:BAF_WebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAnnealingEquipments">
+      <soap:operation soapAction="http://tempuri.org/GetAnnealingEquipments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingEstimatedProcessEnding">
+      <soap:operation soapAction="http://tempuri.org/GetAnnealingEstimatedProcessEnding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingStateRecords">
+      <soap:operation soapAction="http://tempuri.org/GetAnnealingStateRecords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingWarehouseBatchesForLogistic">
+      <soap:operation soapAction="http://tempuri.org/GetAnnealingWarehouseBatchesForLogistic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysEquipmentList">
+      <soap:operation soapAction="http://tempuri.org/GetSsysEquipmentList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBafZoneDefinitions">
+      <soap:operation soapAction="http://tempuri.org/GetSsysBafZoneDefinitions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSsysWorkOrder">
+      <soap:operation soapAction="http://tempuri.org/CreateSsysWorkOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BAF_WebServiceSoap12" type="tns:BAF_WebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAnnealingEquipments">
+      <soap12:operation soapAction="http://tempuri.org/GetAnnealingEquipments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingEstimatedProcessEnding">
+      <soap12:operation soapAction="http://tempuri.org/GetAnnealingEstimatedProcessEnding" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingStateRecords">
+      <soap12:operation soapAction="http://tempuri.org/GetAnnealingStateRecords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingWarehouseBatchesForLogistic">
+      <soap12:operation soapAction="http://tempuri.org/GetAnnealingWarehouseBatchesForLogistic" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysEquipmentList">
+      <soap12:operation soapAction="http://tempuri.org/GetSsysEquipmentList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBafZoneDefinitions">
+      <soap12:operation soapAction="http://tempuri.org/GetSsysBafZoneDefinitions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSsysWorkOrder">
+      <soap12:operation soapAction="http://tempuri.org/CreateSsysWorkOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BAF_WebServiceHttpGet" type="tns:BAF_WebServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetAnnealingEquipments">
+      <http:operation location="/GetAnnealingEquipments" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingEstimatedProcessEnding">
+      <http:operation location="/GetAnnealingEstimatedProcessEnding" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingStateRecords">
+      <http:operation location="/GetAnnealingStateRecords" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingWarehouseBatchesForLogistic">
+      <http:operation location="/GetAnnealingWarehouseBatchesForLogistic" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysEquipmentList">
+      <http:operation location="/GetSsysEquipmentList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBafZoneDefinitions">
+      <http:operation location="/GetSsysBafZoneDefinitions" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSsysWorkOrder">
+      <http:operation location="/CreateSsysWorkOrder" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BAF_WebServiceHttpPost" type="tns:BAF_WebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetAnnealingEquipments">
+      <http:operation location="/GetAnnealingEquipments" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingEstimatedProcessEnding">
+      <http:operation location="/GetAnnealingEstimatedProcessEnding" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingStateRecords">
+      <http:operation location="/GetAnnealingStateRecords" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnealingWarehouseBatchesForLogistic">
+      <http:operation location="/GetAnnealingWarehouseBatchesForLogistic" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysEquipmentList">
+      <http:operation location="/GetSsysEquipmentList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBafZoneDefinitions">
+      <http:operation location="/GetSsysBafZoneDefinitions" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSsysWorkOrder">
+      <http:operation location="/CreateSsysWorkOrder" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BAF_WebService">
+    <wsdl:port name="BAF_WebServiceSoap" binding="tns:BAF_WebServiceSoap">
+      <soap:address location="http://brckapp9/BAF_SSYS_WebService/BAF_WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="BAF_WebServiceSoap12" binding="tns:BAF_WebServiceSoap12">
+      <soap12:address location="http://brckapp9/BAF_SSYS_WebService/BAF_WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="BAF_WebServiceHttpGet" binding="tns:BAF_WebServiceHttpGet">
+      <http:address location="http://brckapp9/BAF_SSYS_WebService/BAF_WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="BAF_WebServiceHttpPost" binding="tns:BAF_WebServiceHttpPost">
+      <http:address location="http://brckapp9/BAF_SSYS_WebService/BAF_WebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,100 @@
+{
+  "tablo4":[
+    {
+      "State": 0,
+      "Description": "Soguma Bitti",
+      "Process": "Soguma Bitti",
+      "IslemSirasi": 16
+    },
+    {
+      "State": 1,
+      "Description": "Tav Adim-1",
+      "Process": "Tav",
+      "IslemSirasi": 3
+    },
+    {
+      "State": 2,
+      "Description": "Tav Adim-2",
+      "Process": "Tav",
+      "IslemSirasi": 4
+    },
+    {
+      "State": 3,
+      "Description": "Tav Adim-3",
+      "Process": "Tav",
+      "IslemSirasi": 5
+    },
+    {
+      "State": 4,
+      "Description": "Tav Adim-4",
+      "Process": "Tav",
+      "IslemSirasi": 6
+    },
+    {
+      "State": 5,
+      "Description": "Tav Adim-5",
+      "Process": "Tav",
+      "IslemSirasi": 7
+    },
+    {
+      "State": 6,
+      "Description": "Tav Adim-6",
+      "Process": "Tav",
+      "IslemSirasi": 8
+    },
+    {
+      "State": 7,
+      "Description": "Tav Adim-7",
+      "Process": "Tav",
+      "IslemSirasi": 9
+    },
+    {
+      "State": 8,
+      "Description": "Tav Adim-8",
+      "Process": "Tav",
+      "IslemSirasi": 10
+    },
+    {
+      "State": 9,
+      "Description": "Tav Adim-9",
+      "Process": "Tav",
+      "IslemSirasi": 11
+    },
+    {
+      "State": 10,
+      "Description": "Tav Adim-10",
+      "Process": "Tav",
+      "IslemSirasi": 12
+    },
+    {
+      "State": 101,
+      "Description": "Temizleme",
+      "Process": "Temizleme",
+      "IslemSirasi": 1
+    },
+    {
+      "State": 102,
+      "Description": "Temizleme Bitti",
+      "Process": "Temizleme Bitti",
+      "IslemSirasi": 2
+    },
+    {
+      "State": 200,
+      "Description": "Tav Bitti",
+      "Process": "Tav Bitti",
+      "IslemSirasi": 13
+    },
+    {
+      "State": 201,
+      "Description": "Sogutma Cani Takili",
+      "Process": "Soguma",
+      "IslemSirasi": 14
+    },
+    {
+      "State": 202,
+      "Description": "Sogutma Cani Calisiyor",
+      "Process": "Soguma",
+      "IslemSirasi": 15
+    }
+  ]
+}

@@ -1,0 +1,230 @@
+ [
+      {
+        "IsEmri": "Bobin Yükle",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Transpalan ",
+        "Bitisnok": "Kaide",
+        "Ekipman": "Bobin",
+        "Sure": "4",
+        "Atacmanturu": "Bobin Aparatı"
+      },
+      {
+        "IsEmri": "Gömlek Tak",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Boştan",
+        "Bitisnok": "Kaide",
+        "Ekipman": "İç Gömlek",
+        "Sure": "2,5",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "Gömlek Tak",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "Kaide",
+        "Ekipman": "İç Gömlek",
+        "Sure": "2",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "Fırın Tak",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "Kaide ",
+        "Ekipman": "Fırın",
+        "Sure": "2",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Fırın Tak",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Boştan ",
+        "Bitisnok": "Kaide",
+        "Ekipman": "Fırın",
+        "Sure": "2,5",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Fırın Çıkart",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Yere",
+        "Ekipman": "Fırın ",
+        "Sure": "2",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Fırın Çıkart",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Kaide",
+        "Ekipman": "Fırın",
+        "Sure": "2",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Soğutma Çanı Tak",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Kaide ",
+        "Ekipman": "Soğutma Çanı ",
+        "Sure": "2",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Soğutma Çanı Çıkart",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Yere",
+        "Ekipman": "Soğutma Çanı ",
+        "Sure": "2,5",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Gömlek Çıkart",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "Yere",
+        "Ekipman": "İç Gömlek",
+        "Sure": "2,5",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "CS sevk",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "CS",
+        "Ekipman": "Bobin",
+        "Sure": "4",
+        "Atacmanturu": "Bobin Aparatı"
+      },
+      {
+        "IsEmri": "CS sevk CC ile",
+        "AtmosphereType": "H2",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "CS",
+        "Ekipman": "Bobin",
+        "Sure": "5",
+        "Atacmanturu": "Bobin Aparatı"
+      },
+      {
+        "IsEmri": "Bobin Yükle",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Transpalan ",
+        "Bitisnok": "Kaide",
+        "Ekipman": "Bobin",
+        "Sure": "4",
+        "Atacmanturu": "Bobin Aparatı"
+      },
+      {
+        "IsEmri": "Gömlek Tak",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Boştan",
+        "Bitisnok": "Kaide",
+        "Ekipman": "İç Gömlek",
+        "Sure": "2,5",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "Gömlek Tak",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "Kaide",
+        "Ekipman": "İç Gömlek",
+        "Sure": "2",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "Fırın Tak",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "Kaide ",
+        "Ekipman": "Fırın",
+        "Sure": "2",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Fırın Tak",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Boştan ",
+        "Bitisnok": "Kaide",
+        "Ekipman": "Fırın",
+        "Sure": "2,5",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Fırın Çıkart",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Yere",
+        "Ekipman": "Fırın ",
+        "Sure": "2",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Fırın Çıkart",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Kaide",
+        "Ekipman": "Fırın",
+        "Sure": "2",
+        "Atacmanturu": "YOK"
+      },
+      {
+        "IsEmri": "Soğutma Çanı Tak",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Kaide ",
+        "Ekipman": "Soğutma Çanı ",
+        "Sure": "2",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "Soğutma Çanı Çıkart",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide ",
+        "Bitisnok": "Yere",
+        "Ekipman": "Soğutma Çanı ",
+        "Sure": "2,5",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "Gömlek Çıkart",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "Yere",
+        "Ekipman": "İç Gömlek",
+        "Sure": "2,5",
+        "Atacmanturu": "Konvektör Taşıma aparatı"
+      },
+      {
+        "IsEmri": "CS sevk",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "CS",
+        "Ekipman": "Bobin",
+        "Sure": "4",
+        "Atacmanturu": "Bobin Aparatı"
+      },
+      {
+        "IsEmri": "CS sevk CC ile",
+        "AtmosphereType": "HNX",
+        "Baslangıcnok": "Kaide",
+        "Bitisnok": "CS",
+        "Ekipman": "Bobin",
+        "Sure": "5",
+        "Atacmanturu": "Bobin Aparatı"
+      },
+      {
+        "IsEmri": "Ataçman değişimi",
+        "AtmosphereType": "",
+        "Baslangıcnok": "",
+        "Bitisnok": "",
+        "Ekipman": "",
+        "Sure": "1",
+        "Atacmanturu": ""
+      }
+    ]
+
+
+

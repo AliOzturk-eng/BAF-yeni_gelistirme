@@ -1,0 +1,428 @@
+[
+    {
+      "Kolonno": 1,
+      "BaseNumber": 1,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 1,
+      "BaseNumber": 2,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 2,
+      "BaseNumber": 3,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 2,
+      "BaseNumber": 4,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 4,
+      "BaseNumber": 5,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 4,
+      "BaseNumber": 6,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 5,
+      "BaseNumber": 7,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 5,
+      "BaseNumber": 8,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 7,
+      "BaseNumber": 9,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 7,
+      "BaseNumber": 10,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 8,
+      "BaseNumber": 11,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 8,
+      "BaseNumber": 12,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 10,
+      "BaseNumber": 13,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 10,
+      "BaseNumber": 14,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 11,
+      "BaseNumber": 15,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 11,
+      "BaseNumber": 16,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 13,
+      "BaseNumber": 17,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 13,
+      "BaseNumber": 18,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 14,
+      "BaseNumber": 19,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 14,
+      "BaseNumber": 20,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 16,
+      "BaseNumber": 21,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 16,
+      "BaseNumber": 22,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 17,
+      "BaseNumber": 23,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 17,
+      "BaseNumber": 24,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 19,
+      "BaseNumber": 25,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 19,
+      "BaseNumber": 26,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 20,
+      "BaseNumber": 27,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 20,
+      "BaseNumber": 28,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 0,
+      "BaseNumber": 29,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 0,
+      "BaseNumber": 30,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 1,
+      "BaseNumber": 31,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 1,
+      "BaseNumber": 32,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 2,
+      "BaseNumber": 33,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 2,
+      "BaseNumber": 34,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "HNX"
+    },
+    {
+      "Kolonno": 26,
+      "BaseNumber": 61,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 26,
+      "BaseNumber": 62,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 25,
+      "BaseNumber": 63,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 25,
+      "BaseNumber": 64,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 24,
+      "BaseNumber": 65,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 24,
+      "BaseNumber": 66,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 23,
+      "BaseNumber": 67,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 23,
+      "BaseNumber": 68,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 21,
+      "BaseNumber": 69,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 21,
+      "BaseNumber": 70,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 19,
+      "BaseNumber": 71,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 19,
+      "BaseNumber": 72,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 18,
+      "BaseNumber": 73,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 18,
+      "BaseNumber": 74,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 17,
+      "BaseNumber": 75,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 17,
+      "BaseNumber": 76,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 14,
+      "BaseNumber": 77,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 14,
+      "BaseNumber": 78,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 13,
+      "BaseNumber": 79,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 13,
+      "BaseNumber": 80,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 11,
+      "BaseNumber": 81,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 11,
+      "BaseNumber": 82,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 10,
+      "BaseNumber": 83,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 10,
+      "BaseNumber": 84,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 8,
+      "BaseNumber": 85,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 8,
+      "BaseNumber": 86,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 7,
+      "BaseNumber": 87,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 7,
+      "BaseNumber": 88,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 5,
+      "BaseNumber": 89,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+    {
+      "Kolonno": 5,
+      "BaseNumber": 90,
+      "Ekipmantipi": 1,
+      "AtmosphereType": "H2"
+    },
+  {
+    "Kolonno": 22,
+    "BaseNumber": 22,
+    "Ekipmantipi": 0,
+    "AtmosphereType": ""
+  },
+  {
+    "Kolonno": 25,
+    "BaseNumber": 25,
+    "Ekipmantipi": 0,
+    "AtmosphereType": ""
+  },
+  {
+    "Kolonno": 15,
+    "BaseNumber": 15,
+    "Ekipmantipi": 0,
+    "AtmosphereType": ""
+  },
+  {
+    "Kolonno": 16,
+    "BaseNumber": 16,
+    "Ekipmantipi": 0,
+    "AtmosphereType": ""
+  },
+  {
+    "Kolonno": 3,
+    "BaseNumber": 3,
+    "Ekipmantipi": 0,
+    "AtmosphereType": ""
+  },
+  {
+    "Kolonno": 4,
+    "BaseNumber": 4,
+    "Ekipmantipi": 0,
+    "AtmosphereType": ""
+  },
+  {
+    "Kolonno": 22,
+    "BaseNumber": 22,
+    "Ekipmantipi": 0,
+    "AtmosphereType": ""
+  }
+  ]

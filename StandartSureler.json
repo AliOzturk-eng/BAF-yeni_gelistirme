@@ -1,0 +1,230 @@
+[
+    {
+      "IsEmri": "Bobin Yukle",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Transpalan ",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Bobin",
+      "Sure": "4",
+      "Atacmanturu": "Bobin Aparatı"
+      
+    },
+    {
+      "IsEmri": "Gomlek Tak",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Bostan",
+      "Bitisnok": "Kaide",
+      "Ekipman": "İc Gomlek",
+      "Sure": "2,5",
+      "Atacmanturu": "Konvektor Tasima aparatı"
+    },
+    {
+      "IsEmri": "Gomlek Tak",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Ic Gomlek",
+      "Sure": "2",
+      "Atacmanturu": "Konvektor Tasima aparatı"
+    },
+    {
+      "IsEmri": "Firin Tak",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "Kaide ",
+      "Ekipman": "Firin",
+      "Sure": "2",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Firin Tak",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Bostan ",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Firin",
+      "Sure": "2,5",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Firin Cikart",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Yere",
+      "Ekipman": "Firin ",
+      "Sure": "2",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Firin Cikart",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Firin",
+      "Sure": "2",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Sogutma Canı Tak",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Kaide ",
+      "Ekipman": "Sogutma Cani ",
+      "Sure": "2",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Sogutma Canı Cikart",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Yere",
+      "Ekipman": "Sogutma Canı ",
+      "Sure": "2,5",
+      "Atacmanturu": "YOK"
+      
+    },
+    {
+      "IsEmri": "Gomlek Cikart",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "Yere",
+      "Ekipman": "Ic Gomlek",
+      "Sure": "2,5",
+      "Atacmanturu": "Konvektor Tasima aparati"
+    },
+    {
+      "IsEmri": "CS sevk",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "CS",
+      "Ekipman": "Bobin",
+      "Sure": "4",
+      "Atacmanturu": "Bobin Aparatı"
+    },
+    {
+      "IsEmri": "CS sevk CC ile",
+      "AtmosphereType": "H2",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "CS",
+      "Ekipman": "Bobin",
+      "Sure": "5",
+      "Atacmanturu": "Bobin Aparatı"
+      
+    },
+    {
+      "IsEmri": "Bobin Yukle",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Transpalan ",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Bobin",
+      "Sure": "4",
+      "Atacmanturu": "Bobin Aparatı"
+    },
+    {
+      "IsEmri": "Gomlek Tak",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Bostan",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Ic Gomlek",
+      "Sure": "2,5",
+      "Atacmanturu": "Konvektor Tasima aparatı"
+    },
+    {
+      "IsEmri": "Gomlek Tak",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Ic Gomlek",
+      "Sure": "2",
+      "Atacmanturu": "Konvektor Tasima aparatı"
+    },
+    {
+      "IsEmri": "Firin Tak",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "Kaide ",
+      "Ekipman": "Firin",
+      "Sure": "2",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Firin Tak",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Bostan ",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Firin",
+      "Sure": "2,5",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Firin Cikart",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Yere",
+      "Ekipman": "Firin ",
+      "Sure": "2",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Firin Cikart",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Kaide",
+      "Ekipman": "Firin",
+      "Sure": "2",
+      "Atacmanturu": "YOK"
+    },
+    {
+      "IsEmri": "Sogutma Cani Tak",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Kaide ",
+      "Ekipman": "Sogutma Canı ",
+      "Sure": "2",
+      "Atacmanturu": "Konvektor Tasima aparatı"
+    },
+    {
+      "IsEmri": "Sogutma Cani Cikart",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide ",
+      "Bitisnok": "Yere",
+      "Ekipman": "Sogutma Cani ",
+      "Sure": "2,5",
+      "Atacmanturu": "Konvektor Tasima aparatı"
+    },
+    {
+      "IsEmri": "Gomlek Cikart",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "Yere",
+      "Ekipman": "Ic Gomlek",
+      "Sure": "2,5",
+      "Atacmanturu": "Konvektor Tasima aparatı"
+    },
+    {
+      "IsEmri": "CS sevk",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "CS",
+      "Ekipman": "Bobin",
+      "Sure": "4",
+      "Atacmanturu": "Bobin Aparatı"
+    },
+    {
+      "IsEmri": "CS sevk CC ile",
+      "AtmosphereType": "HNX",
+      "Baslangıcnok": "Kaide",
+      "Bitisnok": "CS",
+      "Ekipman": "Bobin",
+      "Sure": "5",
+      "Atacmanturu": "Bobin Aparatı"
+    },
+    {
+      "IsEmri": "Atacman degisimi",
+      "AtmosphereType": "",
+      "Baslangıcnok": "",
+      "Bitisnok": "",
+      "Ekipman": "",
+      "Sure": "1",
+      "Atacmanturu": ""
+    }
+  ]

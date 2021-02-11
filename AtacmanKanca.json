@@ -1,0 +1,62 @@
+ [
+    {
+      "AtmosphereType": "H2",
+      "Ekipman": "Ic Gömlek ",
+      "AtacmanTuru": "Konvektor Tasima aparatı",
+      "Kancaturu": "Monoray Kanca"
+    },
+    {
+      "AtmosphereType": "HNX",
+      "Ekipman": "Ic Gomlek ",
+      "AtacmanTuru": "Konvektor Tasima aparatı",
+      "Kancaturu": "Monoray Kanca"
+    },
+    {
+      "AtmosphereType": "H2",
+      "Ekipman": "Sogutma Cani",
+      "AtacmanTuru": "YOK",
+      "Kancaturu": "Ana Kanca"
+    },
+    {
+      "AtmosphereType": "HNX",
+      "Ekipman": "Sogutma Cani",
+      "AtacmanTuru": "Konvektor Tasima aparatı",
+      "Kancaturu": "Monoray Kanca"
+    },
+    {
+      "AtmosphereType": "H2",
+      "Ekipman": "Konvektor",
+      "AtacmanTuru": "Konvektor Tasima aparatı",
+      "Kancaturu": "Monoray Kanca"
+    },
+    {
+      "AtmosphereType": "HNX",
+      "Ekipman": "Konvektor",
+      "AtacmanTuru": "Konvektor Tasima aparatı",
+      "Kancaturu": "Monoray Kanca"
+    },
+    {
+      "AtmosphereType": "H2",
+      "Ekipman": "Firin",
+      "AtacmanTuru": "YOK",
+      "Kancaturu": "Ana Kanca"
+    },
+    {
+      "AtmosphereType": "HNX",
+      "Ekipman": "Firin",
+      "AtacmanTuru": "YOK",
+      "Kancaturu": "Ana Kanca"
+    },
+    {
+      "AtmosphereType": "H2",
+      "Ekipman": "Bobin ",
+      "AtacmanTuru": "Bobin Aparatı",
+      "Kancaturu": "Ana Kanca"
+    },
+    {
+      "AtmosphereType": "HNX",
+      "Ekipman": "Bobin ",
+      "AtacmanTuru": "Bobin Aparatı",
+      "Kancaturu": "Ana Kanca"
+    }
+  ]
