@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonRead.cs" />
+    <Compile Include="SSYSEquipment.cs" />
     <Compile Include="VincNumarasi.cs" />
     <Compile Include="Yapilacak.cs" />
     <Compile Include="detay.cs" />

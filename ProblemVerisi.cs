@@ -17,6 +17,7 @@ namespace Tavlama
 		public List<Firin> FirinListesi { get; set; }
 		public List<Sogutmacan> SogutmacanListesi { get; set; }
 		public List<Kaidebobin> KaideBobinListesi { get; set; }
+		public List<SSYSEquipment> SSYSEquipmentList { get; set; }
 
 		public List<IsemriL> list { get; set; }
 		public List<IsemriL> YukleListHNX { get; set; }
@@ -223,6 +224,7 @@ namespace Tavlama
 			DataTable DTEquipList = new DataTable();
 			DataTable DTZoneList = new DataTable();
 			DataTable CreateSsysWorkOrder = new DataTable();
+			DataTable BobinBatchList = new DataTable();
 			string[] SonucArray = new string[100];
 			Console.WriteLine("web service bağlanılıyor-" + DateTime.Now.ToString());
 			BAF_WebService.BAF_WebService objService = new BAF_WebService.BAF_WebService();
@@ -239,9 +241,32 @@ namespace Tavlama
 			DTliste = objService.GetAnnealingStateRecords().Tables[0];
 			DTEquipList = objService.GetSsysEquipmentList().Tables[0];
 			DTZoneList = objService.GetSsysBafZoneDefinitions().Tables[0];
-			
+			BobinBatchList = objService.GetSsysBatchList("").Tables[0];
 			//objService.CreateSsysWorkOrder(strObjeNo, strObjeTipi, strEmirTipi, strAlHat, strBrkHat, strAciklama);
 			OOtahmini_proses_bitim = DTtahmini_proses_bitim;
+			
+
+			SSYSEquipmentList = new List<SSYSEquipment>();
+			foreach (DataRow dr in DTEquipList.Rows)
+			{
+				SSYSEquipment eq = new SSYSEquipment();
+				eq.EkipmanNo = dr["EkipmanNo"].ToString();
+				eq.EkipmanTipi = dr["EkipmanTipi"].ToString();
+				eq.CalTipi = dr["CalTipi"].ToString();
+				eq.AlanKodu = dr["AlanKodu"].ToString();
+				eq.AlanTanimi = dr["AlanTanimi"].ToString();
+				eq.BolgeKodu = dr["BolgeKodu"].ToString();
+				eq.BolgeTanimi = dr["BolgeTanimi"].ToString();
+				eq.HatKodu = dr["HatKodu"].ToString();
+				eq.HatTanimi = dr["HatTanimi"].ToString();
+				eq.Havuz = dr["Havuz"].ToString().Length>0 ? Convert.ToBoolean(dr["Havuz"].ToString()):false;
+				eq.Paketleme = dr["Paketleme"].ToString().Length > 0 ? Convert.ToBoolean(dr["Paketleme"].ToString()):false;
+				eq.X = Convert.ToDouble(dr["X"].ToString());
+				eq.Y = Convert.ToDouble(dr["Y"].ToString());
+				eq.Z = Convert.ToDouble(dr["Z"].ToString());
+
+				SSYSEquipmentList.Add(eq);
+			}
 
 			SogutmacanListesi = new List<Sogutmacan>();
 			foreach (DataRow dr in DTsogutmacani.Rows)
@@ -254,6 +279,14 @@ namespace Tavlama
 				sogutmacani.BaseNumber = Convert.ToInt32(dr["BaseNumber"].ToString());
 				sogutmacani.StatusText = dr["StatusText"].ToString();
 				sogutmacani.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
+				if (sogutmacani.IsIdled == 1)
+				{
+					int indexX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("SC" + sogutmacani.No));
+					if (indexX >= 0)
+					{
+						if (SSYSEquipmentList[indexX].AlanKodu != "00008_SA") { sogutmacani.IsIdled = 0; }
+					}
+				}
 				// yukardakileri direkt constructor içinde de yazabilirsin. Classta parametrelerle tanımlamıştık, yapmicam şimdi :D
 
 				SogutmacanListesi.Add(sogutmacani);
@@ -267,6 +300,18 @@ namespace Tavlama
 				kaide.No = Convert.ToInt32(dr["No"].ToString());
 				kaide.StatusText = dr["StatusText"].ToString();
 				kaide.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
+
+				// Phoenixten gelen isIDle=true ise kontrol et
+				if (kaide.IsIdled==1) {
+					int index = SSYSEquipmentList.FindIndex(x => x.AlanKodu.Trim().Equals(kaide.AtmosphereType.Trim() +"_"+ kaide.No));
+					if (index >= 0)
+						kaide.IsIdled = 0;
+				}
+				int indexX = SSYSEquipmentList.FindIndex(x => x.AlanKodu.Trim().Equals(kaide.AtmosphereType.Trim() + "_" + kaide.No));
+				if(indexX >= 0) { 
+				   kaide.Xkor = SSYSEquipmentList[indexX].X;
+				   kaide.Ykor = SSYSEquipmentList[indexX].Y;
+				}
 				KaideListesi.Add(kaide);
 			}
 			GomlekListesi = new List<Gomlek>();
@@ -278,7 +323,15 @@ namespace Tavlama
 				gomlek.BaseNumber = Convert.ToInt32(dr["BaseNumber"].ToString());
 				gomlek.StatusText = dr["StatusText"].ToString();
 				gomlek.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
-				GomlekListesi.Add(gomlek);
+				if (gomlek.IsIdled == 1)
+				{
+					int indexX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("G" + gomlek.No));
+					if (indexX >= 0)
+					{
+						if (SSYSEquipmentList[indexX].AlanKodu != "00008_SA") { gomlek.IsIdled = 0; }
+					}
+				}
+					GomlekListesi.Add(gomlek);
 			}
 			FirinListesi = new List<Firin>();
 			foreach (DataRow dr in DTfirin.Rows)
@@ -290,6 +343,15 @@ namespace Tavlama
 				firinl.StatusText = dr["StatusText"].ToString();
 				firinl.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
 				firinl.No = Convert.ToInt32(dr["No"].ToString());
+				if (firinl.IsIdled == 1)
+				{
+					int indexX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("F" + firinl.No));
+					if (indexX >= 0)
+					{
+						if (SSYSEquipmentList[indexX].AlanKodu != "00008_SA") { firinl.IsIdled = 0; }
+					}
+				}
+
 				FirinListesi.Add(firinl);
 			}
 			//	OOtahmini_proses_bitim.DefaultView.RowFilter = "ProcessEnd = '1.01.1900 00:00:00'";

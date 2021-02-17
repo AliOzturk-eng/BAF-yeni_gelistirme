@@ -91,6 +91,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetSsysBatchList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strBatchNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSsysBatchListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSsysBatchListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetSsysBafZoneDefinitions">
         <s:complexType />
       </s:element>
@@ -165,6 +186,12 @@
   <wsdl:message name="GetSsysEquipmentListSoapOut">
     <wsdl:part name="parameters" element="tns:GetSsysEquipmentListResponse" />
   </wsdl:message>
+  <wsdl:message name="GetSsysBatchListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSsysBatchList" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBatchListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSsysBatchListResponse" />
+  </wsdl:message>
   <wsdl:message name="GetSsysBafZoneDefinitionsSoapIn">
     <wsdl:part name="parameters" element="tns:GetSsysBafZoneDefinitions" />
   </wsdl:message>
@@ -197,6 +224,12 @@
   </wsdl:message>
   <wsdl:message name="GetSsysEquipmentListHttpGetIn" />
   <wsdl:message name="GetSsysEquipmentListHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBatchListHttpGetIn">
+    <wsdl:part name="strBatchNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBatchListHttpGetOut">
     <wsdl:part name="Body" element="tns:DataSet" />
   </wsdl:message>
   <wsdl:message name="GetSsysBafZoneDefinitionsHttpGetIn" />
@@ -236,6 +269,12 @@
   <wsdl:message name="GetSsysEquipmentListHttpPostOut">
     <wsdl:part name="Body" element="tns:DataSet" />
   </wsdl:message>
+  <wsdl:message name="GetSsysBatchListHttpPostIn">
+    <wsdl:part name="strBatchNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysBatchListHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
   <wsdl:message name="GetSsysBafZoneDefinitionsHttpPostIn" />
   <wsdl:message name="GetSsysBafZoneDefinitionsHttpPostOut">
     <wsdl:part name="Body" element="tns:DataSet" />
@@ -272,6 +311,10 @@
       <wsdl:input message="tns:GetSsysEquipmentListSoapIn" />
       <wsdl:output message="tns:GetSsysEquipmentListSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetSsysBatchList">
+      <wsdl:input message="tns:GetSsysBatchListSoapIn" />
+      <wsdl:output message="tns:GetSsysBatchListSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <wsdl:input message="tns:GetSsysBafZoneDefinitionsSoapIn" />
       <wsdl:output message="tns:GetSsysBafZoneDefinitionsSoapOut" />
@@ -302,6 +345,10 @@
       <wsdl:input message="tns:GetSsysEquipmentListHttpGetIn" />
       <wsdl:output message="tns:GetSsysEquipmentListHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetSsysBatchList">
+      <wsdl:input message="tns:GetSsysBatchListHttpGetIn" />
+      <wsdl:output message="tns:GetSsysBatchListHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <wsdl:input message="tns:GetSsysBafZoneDefinitionsHttpGetIn" />
       <wsdl:output message="tns:GetSsysBafZoneDefinitionsHttpGetOut" />
@@ -331,6 +378,10 @@
     <wsdl:operation name="GetSsysEquipmentList">
       <wsdl:input message="tns:GetSsysEquipmentListHttpPostIn" />
       <wsdl:output message="tns:GetSsysEquipmentListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBatchList">
+      <wsdl:input message="tns:GetSsysBatchListHttpPostIn" />
+      <wsdl:output message="tns:GetSsysBatchListHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <wsdl:input message="tns:GetSsysBafZoneDefinitionsHttpPostIn" />
@@ -381,6 +432,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSsysEquipmentList">
       <soap:operation soapAction="http://tempuri.org/GetSsysEquipmentList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBatchList">
+      <soap:operation soapAction="http://tempuri.org/GetSsysBatchList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -454,6 +514,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSsysBatchList">
+      <soap12:operation soapAction="http://tempuri.org/GetSsysBatchList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <soap12:operation soapAction="http://tempuri.org/GetSsysBafZoneDefinitions" style="document" />
       <wsdl:input>
@@ -520,6 +589,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSsysBatchList">
+      <http:operation location="/GetSsysBatchList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <http:operation location="/GetSsysBafZoneDefinitions" />
       <wsdl:input>
@@ -577,6 +655,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSsysEquipmentList">
       <http:operation location="/GetSsysEquipmentList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysBatchList">
+      <http:operation location="/GetSsysBatchList" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

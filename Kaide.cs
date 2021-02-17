@@ -7,6 +7,8 @@ namespace Tavlama
         public string AtmosphereType;
         public string StatusText;
         public int IsIdled;
+        public double Xkor;
+        public double Ykor;
 
      //   public Kaide(int no, string atmosphereType, string statusText, int isIdled)
      //   {

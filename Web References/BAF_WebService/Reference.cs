@@ -40,6 +40,8 @@ namespace Tavlama.BAF_WebService {
         
         private System.Threading.SendOrPostCallback GetSsysEquipmentListOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetSsysBatchListOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetSsysBafZoneDefinitionsOperationCompleted;
         
         private System.Threading.SendOrPostCallback CreateSsysWorkOrderOperationCompleted;
@@ -96,6 +98,9 @@ namespace Tavlama.BAF_WebService {
         
         /// <remarks/>
         public event GetSsysEquipmentListCompletedEventHandler GetSsysEquipmentListCompleted;
+        
+        /// <remarks/>
+        public event GetSsysBatchListCompletedEventHandler GetSsysBatchListCompleted;
         
         /// <remarks/>
         public event GetSsysBafZoneDefinitionsCompletedEventHandler GetSsysBafZoneDefinitionsCompleted;
@@ -237,6 +242,35 @@ namespace Tavlama.BAF_WebService {
             if ((this.GetSsysEquipmentListCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetSsysEquipmentListCompleted(this, new GetSsysEquipmentListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSsysBatchList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetSsysBatchList(string strBatchNumber) {
+            object[] results = this.Invoke("GetSsysBatchList", new object[] {
+                        strBatchNumber});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetSsysBatchListAsync(string strBatchNumber) {
+            this.GetSsysBatchListAsync(strBatchNumber, null);
+        }
+        
+        /// <remarks/>
+        public void GetSsysBatchListAsync(string strBatchNumber, object userState) {
+            if ((this.GetSsysBatchListOperationCompleted == null)) {
+                this.GetSsysBatchListOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSsysBatchListOperationCompleted);
+            }
+            this.InvokeAsync("GetSsysBatchList", new object[] {
+                        strBatchNumber}, this.GetSsysBatchListOperationCompleted, userState);
+        }
+        
+        private void OnGetSsysBatchListOperationCompleted(object arg) {
+            if ((this.GetSsysBatchListCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetSsysBatchListCompleted(this, new GetSsysBatchListCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -445,6 +479,32 @@ namespace Tavlama.BAF_WebService {
         private object[] results;
         
         internal GetSsysEquipmentListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    public delegate void GetSsysBatchListCompletedEventHandler(object sender, GetSsysBatchListCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetSsysBatchListCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetSsysBatchListCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
