@@ -9,15 +9,16 @@ namespace Tavlama
         public int BaseNumber;
         public int Phase;
         public int IsIdled;
-
-    //   public Firin(int no, String atmosphereType, String statusText, int baseNumber, int isIdled)
-    //    {
-    //        No = no;
-    //        AtmosphereType = atmosphereType;
-    //        StatusText = statusText;
-    //        BaseNumber = baseNumber;
-    //        IsIdled = isIdled;
-    //    }
+        public double Xkor;
+        public double Ykor;
+        //   public Firin(int no, String atmosphereType, String statusText, int baseNumber, int isIdled)
+        //    {
+        //        No = no;
+        //        AtmosphereType = atmosphereType;
+        //        StatusText = statusText;
+        //        BaseNumber = baseNumber;
+        //        IsIdled = isIdled;
+        //    }
         public Firin() {}
     }
 }

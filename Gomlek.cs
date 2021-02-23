@@ -8,7 +8,8 @@ namespace Tavlama
         public string StatusText;
         public int BaseNumber;
         public int IsIdled;
-
+        public double Xkor;
+        public double Ykor;
         //  public Gomlek(int no, string atmosphereType, string statusText, int baseNumber, int isIdled)
         //   {
         //      No = no;

@@ -159,9 +159,10 @@ namespace Tavlama
 		public List<Firin> GetUygunFirin(string AType) {
 			return FirinListesi.Where(o => o.IsIdled == 1 && o.AtmosphereType.Equals(AType)).ToList();
 		}
-		public List<Sogutmacan> GetUygunSoCa(bool isFull, string AType)
+		public List<Sogutmacan> GetUygunSoCa(bool isFull,string AType)
 		{
-			return SogutmacanListesi.Where(o => (isFull || (!isFull && o.IsIdled == 1)) && o.AtmosphereType.Equals(AType)).ToList();
+			return SogutmacanListesi.Where(o => o.IsIdled == 1 && o.AtmosphereType.Equals(AType)).ToList();
+		//	return SogutmacanListesi.Where(o => (isFull || (!isFull && o.IsIdled == 1)) && o.AtmosphereType.Equals(AType)).ToList();
 		}
 		public List<Kaide> GetUygunKaideler(string AType) {
 			//return KaideListesi.Where(o => o.StatusText.Equals("BOŞALTILDI") && o.AtmosphereType.Equals(AType)).ToList();
@@ -288,7 +289,12 @@ namespace Tavlama
 					}
 				}
 				// yukardakileri direkt constructor içinde de yazabilirsin. Classta parametrelerle tanımlamıştık, yapmicam şimdi :D
-
+				int indexSCX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("SC" + sogutmacani.No));
+				if (indexSCX >= 0)
+				{
+					sogutmacani.Xkor = SSYSEquipmentList[indexSCX].X;
+					sogutmacani.Ykor = SSYSEquipmentList[indexSCX].Y;
+				}
 				SogutmacanListesi.Add(sogutmacani);
 			}
 			
@@ -331,7 +337,13 @@ namespace Tavlama
 						if (SSYSEquipmentList[indexX].AlanKodu != "00008_SA") { gomlek.IsIdled = 0; }
 					}
 				}
-					GomlekListesi.Add(gomlek);
+				int indexGX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("G" + gomlek.No));
+				if (indexGX >= 0)
+				{
+					gomlek.Xkor = SSYSEquipmentList[indexGX].X;
+					gomlek.Ykor = SSYSEquipmentList[indexGX].Y;
+				}
+				GomlekListesi.Add(gomlek);
 			}
 			FirinListesi = new List<Firin>();
 			foreach (DataRow dr in DTfirin.Rows)
@@ -351,7 +363,12 @@ namespace Tavlama
 						if (SSYSEquipmentList[indexX].AlanKodu != "00008_SA") { firinl.IsIdled = 0; }
 					}
 				}
-
+				int indexFX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("F" + firinl.No));
+				if (indexFX >= 0)
+				{
+					firinl.Xkor = SSYSEquipmentList[indexFX].X;
+					firinl.Ykor = SSYSEquipmentList[indexFX].Y;
+				}
 				FirinListesi.Add(firinl);
 			}
 			//	OOtahmini_proses_bitim.DefaultView.RowFilter = "ProcessEnd = '1.01.1900 00:00:00'";
@@ -424,6 +441,8 @@ namespace Tavlama
 			List<Firin> UygunFurHNX = GetUygunFirin("HNX");
 			List<Kaide> UygunKaideATMHNX = GetUygunKaideler("HNX");
 			List<Kaide> UygunKaideATMH2 = GetUygunKaideler("H2");
+			//List<Sogutmacan> UygunSOCAHNX = GetUygunSoCa("HNX");
+			//List<Sogutmacan> UygunSOCAH2 = GetUygunSoCa("H2");
 			List<Sogutmacan> UygunSOCAHNX = GetUygunSoCa(isFull, "HNX");
 			List<Sogutmacan> UygunSOCAH2 = GetUygunSoCa(isFull, "H2");
 			for (int i = 0; i < IS_TAHMIN; i++)
@@ -431,6 +450,7 @@ namespace Tavlama
 				IsemriL isemri = new IsemriL();
 				Prosesbitim ProTurn = ProsesbitimListesi[i];
 				
+				int ISXLOKASYON = Convert.ToInt32(KaideListesi.Find(e => e.No == ProTurn.BaseNumber).Xkor); 
 				int emir_sirasiTAV = 1;
 				int emir_sirasiBOS = 1;
 				int emir_sirasiSOG = 1;
@@ -674,7 +694,7 @@ namespace Tavlama
 
 					isemriTAVBIT.Zaman = IsBas ;
 					var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
-
+					
 					isemriTAVBIT.Konum1Kolon = koloneslesme.Kolonno + "";
 					isemriTAVBIT.Konum1Kaide = ProTurn.BaseNumber.ToString();
 					isemriTAVBIT.Konum2Kolon = koloneslesme.Kolonno + "";
@@ -737,7 +757,7 @@ namespace Tavlama
 				//	List<Sogutmacan> UygunSOCAHNX = GetUygunSoCa(isFull,"HNX");
 				//	List<Sogutmacan> UygunSOCAH2 = GetUygunSoCa(isFull, "H2");
 
-					int Finalfark = 100;
+					double Finalfark = 100000;
 					int MinRow = 0;
 
 					if (ProTurn.BaseNumber <= 34)
@@ -750,16 +770,17 @@ namespace Tavlama
 							IsemriL isemriSoCaHNX = new IsemriL();
 							for (int t = 0; t < UygunSOCAHNX.Count; t++)
 							{
-								var SSkoloneslesmeSOCA = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunSOCAHNX[t].BaseNumber);
-								int farkC = Math.Abs(koloneslesme.Kolonno - SSkoloneslesmeSOCA.Kolonno);
-								if (farkC < Finalfark)
+							//	var SSkoloneslesmeSOCA = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunSOCAHNX[t].BaseNumber);
+							//	int farkC = Math.Abs(koloneslesme.Kolonno - SSkoloneslesmeSOCA.Kolonno);
+								double FARKC = Math.Abs(ISXLOKASYON - UygunSOCAHNX[t].Xkor);
+								if (FARKC < Finalfark)
 								{
-									Finalfark = farkC;
+									Finalfark = FARKC;
 									MinRow = t;
 
 								}
 							}
-
+							
 							//	TimeSpan ZamanFark = IsBas - DateTime.Now;
 							//	zamfark = Convert.ToInt32(ZamanFark.TotalMinutes);
 							if (Hazir(IsBas)) { isemriSoCaHNX.IntZaman = 0; }
@@ -804,17 +825,16 @@ namespace Tavlama
 					{
 						if (UygunSOCAH2.Count > 0) { 
 							for (int t = 0; t < UygunSOCAH2.Count; t++)
-						{
-							var SSkoloneslesmeSOCA = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunSOCAH2[t].BaseNumber);
-							int farkC = Math.Abs(koloneslesme.Kolonno - SSkoloneslesmeSOCA.Kolonno);
-							if (farkC < Finalfark)
-							{
-								Finalfark = farkC;
-								MinRow = t;
+					        {
+								double FARKC = Math.Abs(ISXLOKASYON - UygunSOCAH2[t].Xkor);
+								if (FARKC < Finalfark)
+								{
+									Finalfark = FARKC;
+									MinRow = t;
 
+								}
 							}
-						}
-						IsemriL isemriSoCaH2 = new IsemriL();
+						   IsemriL isemriSoCaH2 = new IsemriL();
 
 							//TimeSpan ZamanFark = IsBas - DateTime.Now;
 							//zamfark = Convert.ToInt32(ZamanFark.TotalMinutes);
@@ -858,7 +878,7 @@ namespace Tavlama
 				}
                 else if (ProTurn.State == 30) 
 				{
-					int Finalfark = 100;
+					double Finalfark = 10000;
 					int MinRow = 0;
 					var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
 					if (ProTurn.BaseNumber <= 34)
@@ -871,11 +891,10 @@ namespace Tavlama
 							IsemriL isemriSoCaHNX = new IsemriL();
 							for (int t = 0; t < UygunSOCAHNX.Count; t++)
 							{
-								var SSkoloneslesmeSOCA = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunSOCAHNX[t].BaseNumber);
-								int farkC = Math.Abs(koloneslesme.Kolonno - SSkoloneslesmeSOCA.Kolonno);
-								if (farkC < Finalfark)
+								double FARKC = Math.Abs(ISXLOKASYON - UygunSOCAHNX[t].Xkor);
+								if (FARKC < Finalfark)
 								{
-									Finalfark = farkC;
+									Finalfark = FARKC;
 									MinRow = t;
 
 								}
@@ -928,11 +947,10 @@ namespace Tavlama
 						{
 							for (int t = 0; t < UygunSOCAH2.Count; t++)
 							{
-								var SSkoloneslesmeSOCA = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunSOCAH2[t].BaseNumber);
-								int farkC = Math.Abs(koloneslesme.Kolonno - SSkoloneslesmeSOCA.Kolonno);
-								if (farkC < Finalfark)
+								double FARKC = Math.Abs(ISXLOKASYON - UygunSOCAH2[t].Xkor);
+								if (FARKC < Finalfark)
 								{
-									Finalfark = farkC;
+									Finalfark = FARKC;
 									MinRow = t;
 
 								}
@@ -979,98 +997,115 @@ namespace Tavlama
 				else if (ProTurn.State == 100 || ProTurn.State == 101 || ProTurn.State == 102)
 				{
 					//Uygun fırını bul tak
-				//	List<Firin> UygunFurH2 = GetUygunFirin(isFull,"H2");
-				//	List<Firin> UygunFurHNX = GetUygunFirin(isFull,"HNX");
-				
+					//	List<Firin> UygunFurH2 = GetUygunFirin(isFull,"H2");
+					//	List<Firin> UygunFurHNX = GetUygunFirin(isFull,"HNX");
+					
 					Console.WriteLine("H2 firin :" + UygunFurH2.Count + "HNX firin :" + UygunFurHNX.Count);
 					int zamfark = 0;
 					if(ProTurn.PlugNumber == 0) 
-					{ 
-				    	if (ProTurn.BaseNumber <= 34)
+					{
+						var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
+						if (ProTurn.BaseNumber <= 34)
 				    	{
 				    		if (UygunFurHNX.Count != 0) 
-						{ 
-						int Finalfark = 100;
-						int MinRow = 0;
-						IsemriL isemriFirinHNX = new IsemriL();
-						for (int t = 0; t < UygunFurHNX.Count; t++)
-						{
-							var koloneslesmeFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[t].BaseNumber);
-							int farkC = Math.Abs(koloneslesmeFur.Kolonno - koloneslesmeFur.Kolonno);
-							if (farkC < Finalfark)
-							{
-								Finalfark = farkC;
-								MinRow = t;
+						     { 
+					        	double Finalfark = 100000;
+					        	int MinRow = 0;
+					        	
+					        	IsemriL isemriFirinHNX = new IsemriL();
+					        	for (int t = 0; t < UygunFurHNX.Count; t++)
+					        	{
+									double FARKC = Math.Abs(ISXLOKASYON - UygunFurHNX[t].Xkor);
+									if (FARKC < Finalfark)
+									{
+										Finalfark = FARKC;
+										MinRow = t;
 
-							}
-						}
-						var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
-						if (Hazir(IsBas))
-						{
-							isemriFirinHNX.IntZaman = 0;
-						}
-						else
-						{
-							TimeSpan ZamanFark = IsBas - DateTime.Now;
-							zamfark = Convert.ToInt32(ZamanFark.TotalMinutes);
-							isemriFirinHNX.IntZaman = zamfark;
-						}
-
-
-						isemriFirinHNX.Zaman = IsBas;
-						isemriFirinHNX.Konum1Kaide = UygunFurHNX[MinRow].BaseNumber.ToString();
-						var koloneslesmeFurHNX = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[MinRow].BaseNumber);
-						isemriFirinHNX.Konum1Kolon = koloneslesmeFurHNX.Kolonno + "";
-						isemriFirinHNX.Konum2Kaide = ProTurn.BaseNumber.ToString();
-						isemriFirinHNX.Konum2Kolon = koloneslesme.Kolonno + "";
-						isemriFirinHNX.AtmosphereTuru = "HNX";
-						isemriFirinHNX.AtacmanTipi = "YOK";
-						isemriFirinHNX.Issuresi = 2.0;
-
-						isemriFirinHNX.Yapilacakis = UygunFurHNX[MinRow].No+ " Fırın tak";// tempF[0]["No"].ToString() + temp[0]["No"].ToString()  can numarasını yaz kaide numarasını yazdır
-						isemriFirinHNX.isTipi = WorkType.firin_tak;
-								isemriFirinHNX.isDetayi = WorkTypeDetail.kaide_yukle;
-						isemriFirinHNX.equipmentNumber = UygunFurHNX[MinRow].No.ToString();
-						UygunFurHNX.RemoveAt(MinRow);
-						isemriFirinHNX.Yapilacakisturu = "Tav baslama";
-						id_strTAV = idStringHazirla(2, islem_sirasiTAV, 1, emir_sirasiTAV, isemriFirinHNX.Issuresi, isemriFirinHNX.AtmosphereTuru);
-						isemriFirinHNX.UniqueID = id_strTAV;
-								/*if (isemriFirinHNX.AtmosphereTuru == "H2")
-								{
-									isemriFirinHNX.skor = 3 * skorhesapla(isemriFirinHNX.UniqueID);
-								}
-								else
-								{
-									isemriFirinHNX.skor = 2 * skorhesapla(isemriFirinHNX.UniqueID);
-								}*/
-								//buradaki taleplerin tamami skor hesapla metodunun sorumlulugunda olmali ki degisiklik gerekirse kolayca adapte olalim
-								isemriFirinHNX.skor = skorhesapla(isemriFirinHNX.UniqueID);
-
-								list.Add(isemriFirinHNX);
-
-						}
-				    
-				    
-				    	}
+									}
+								//	var koloneslesmeFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[t].BaseNumber);
+					        	//	int farkC = Math.Abs(koloneslesme.Kolonno - koloneslesmeFur.Kolonno);
+					        	//	if (farkC < Finalfark)
+					        	//	{
+					        	//		Finalfark = farkC;
+					        	//		MinRow = t;
+					        	//
+					        	//	}
+					        	}
+					        	
+					        	if (Hazir(IsBas))
+					        	{
+					        		isemriFirinHNX.IntZaman = 0;
+					        	}
+					        	else
+					        	{
+					        		TimeSpan ZamanFark = IsBas - DateTime.Now;
+					        		zamfark = Convert.ToInt32(ZamanFark.TotalMinutes);
+					        		isemriFirinHNX.IntZaman = zamfark;
+					        	}
+					        
+					        
+					        	isemriFirinHNX.Zaman = IsBas;
+					        	isemriFirinHNX.Konum1Kaide = UygunFurHNX[MinRow].BaseNumber.ToString();
+					        	var koloneslesmeFurHNX = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[MinRow].BaseNumber);
+					        	isemriFirinHNX.Konum1Kolon = koloneslesmeFurHNX.Kolonno + "";
+					        	isemriFirinHNX.Konum2Kaide = ProTurn.BaseNumber.ToString();
+					        	isemriFirinHNX.Konum2Kolon = koloneslesme.Kolonno + "";
+					        	isemriFirinHNX.AtmosphereTuru = "HNX";
+					        	isemriFirinHNX.AtacmanTipi = "YOK";
+					        	isemriFirinHNX.Issuresi = 2.0;
+					        
+					        	isemriFirinHNX.Yapilacakis = UygunFurHNX[MinRow].No+ " Fırın tak";// tempF[0]["No"].ToString() + temp[0]["No"].ToString()  can numarasını yaz kaide numarasını yazdır
+					        	isemriFirinHNX.isTipi = WorkType.firin_tak;
+					        			isemriFirinHNX.isDetayi = WorkTypeDetail.kaide_yukle;
+					        	isemriFirinHNX.equipmentNumber = UygunFurHNX[MinRow].No.ToString();
+					        	UygunFurHNX.RemoveAt(MinRow);
+					        	isemriFirinHNX.Yapilacakisturu = "Tav baslama";
+					        	id_strTAV = idStringHazirla(2, islem_sirasiTAV, 1, emir_sirasiTAV, isemriFirinHNX.Issuresi, isemriFirinHNX.AtmosphereTuru);
+					        	isemriFirinHNX.UniqueID = id_strTAV;
+					        			/*if (isemriFirinHNX.AtmosphereTuru == "H2")
+					        			{
+					        				isemriFirinHNX.skor = 3 * skorhesapla(isemriFirinHNX.UniqueID);
+					        			}
+					        			else
+					        			{
+					        				isemriFirinHNX.skor = 2 * skorhesapla(isemriFirinHNX.UniqueID);
+					        			}*/
+					        			//buradaki taleplerin tamami skor hesapla metodunun sorumlulugunda olmali ki degisiklik gerekirse kolayca adapte olalim
+					        			isemriFirinHNX.skor = skorhesapla(isemriFirinHNX.UniqueID);
+					        
+					        			list.Add(isemriFirinHNX);
+					        
+					        	}
+				            
+				            
+				        }
 				    	else if((76>=ProTurn.BaseNumber) && (ProTurn.BaseNumber >= 61)) 
-					{
-						if (UygunFurH2Faz1.Count != 0)
-						{
-							int Finalfark = 100;
+				    	{
+						   if (UygunFurH2Faz1.Count != 0)
+						   {
+							double Finalfark = 10000;
 							int MinRow = 0;
+							
 							IsemriL isemriFirinH2Faz1 = new IsemriL();
 							for (int t = 0; t < UygunFurH2Faz1.Count; t++)
 							{
-								var koloneslesmeFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2Faz1[t].BaseNumber);
-								int farkC = Math.Abs(koloneslesmeFur.Kolonno - koloneslesmeFur.Kolonno);
-								if (farkC < Finalfark)
-								{
-									Finalfark = farkC;
-									MinRow = t;
+									double FARKC = Math.Abs(ISXLOKASYON - UygunFurH2Faz1[t].Xkor);
+									if (FARKC < Finalfark)
+									{
+										Finalfark = FARKC;
+										MinRow = t;
 
-								}
+									}
+							//		var koloneslesmeFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2Faz1[t].BaseNumber);
+							//	int farkC = Math.Abs(koloneslesme.Kolonno - koloneslesmeFur.Kolonno);
+							//	if (farkC < Finalfark)
+							//	{
+							//		Finalfark = farkC;
+							//		MinRow = t;
+							//
+							//	}
 							}
-							var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
+							
 							if (Hazir(IsBas))
 							{
 								isemriFirinH2Faz1.IntZaman = 0;
@@ -1116,27 +1151,34 @@ namespace Tavlama
 
 						}
 
-						islem_sirasiTAV = islem_sirasiTAV + 1;
-					}
+						   islem_sirasiTAV = islem_sirasiTAV + 1;
+					    }
 				    	else 
 					{
 						if (UygunFurH2Faz2.Count != 0) 
 						{ 
-						int Finalfark = 100;
+						double Finalfark = 10000;
 						int MinRow = 0;
 						IsemriL isemriFirinH2Faz2 = new IsemriL();
 						for (int t = 0; t < UygunFurH2Faz2.Count; t++)
 						{
-							var koloneslesmeFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2Faz2[t].BaseNumber);
-							int farkC = Math.Abs(koloneslesmeFur.Kolonno - koloneslesmeFur.Kolonno);
-							if (farkC < Finalfark)
-							{
-								Finalfark = farkC;
-								MinRow = t;
+									double FARKC = Math.Abs(ISXLOKASYON - UygunFurH2Faz2[t].Xkor);
+									if (FARKC < Finalfark)
+									{
+										Finalfark = FARKC;
+										MinRow = t;
 
-							}
+									}
+						//			var koloneslesmeFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2Faz2[t].BaseNumber);
+						//	int farkC = Math.Abs(koloneslesme.Kolonno - koloneslesmeFur.Kolonno);
+						//	if (farkC < Finalfark)
+						//	{
+						//		Finalfark = farkC;
+						//		MinRow = t;
+						//
+						//	}
 						}
-						var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
+						
 						if (Hazir(IsBas))
 						{
 								isemriFirinH2Faz2.IntZaman = 0;
@@ -1209,6 +1251,8 @@ namespace Tavlama
 			List<Firin> UygunFurH2 = GetUygunFirin("H2");
 			List<Firin> UygunFurH2Faz1 = UygunFurH2.Where(o => o.Phase == 1).ToList();
 			List<Firin> UygunFurH2Faz2 = UygunFurH2.Where(o => o.Phase == 2).ToList();
+			
+			
 			List<Firin> UygunFurHNX = GetUygunFirin("HNX");
 			string id_yukleHNX;
 			string id_yukleH2;
@@ -1260,6 +1304,7 @@ namespace Tavlama
 
 						}
 						var YukleEsleme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygun[MinRow].No);
+						int ISYUKLOKASYON = Convert.ToInt32(KaideListesi.Find(e => e.No == hnxUygun[MinRow].No).Xkor);
 						int ssss = item.List.Count();
 						
 						int emir_sirasiLOAD = 1;
@@ -1295,17 +1340,24 @@ namespace Tavlama
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						int FinalFarkGom = 100;
+						double FinalFarkGom = 10000;
 						int MinRowGom = 0;
 						for(int t=0;t<hnxUygunGom.Count;t++)
 						{
-							var LoadHNXGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[t].BaseNumber);
-							int FarkG = Math.Abs(LoadHNXGom.Kolonno - YukleEsleme.Kolonno);
-							if(FarkG<FinalFarkGom)
+							double FARKC = Math.Abs(ISYUKLOKASYON - hnxUygunGom[t].Xkor);
+							if (FARKC < FinalFarkGom)
 							{
-								FinalFarkGom = FarkG;
+								FinalFarkGom = FARKC;
 								MinRowGom = t;
+
 							}
+						//	var LoadHNXGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[t].BaseNumber);
+						//	int FarkG = Math.Abs(LoadHNXGom.Kolonno - YukleEsleme.Kolonno);
+						//	if(FarkG<FinalFarkGom)
+						//	{
+						//		FinalFarkGom = FarkG;
+						//		MinRowGom = t;
+						//	}
 						}
 						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[MinRowGom].BaseNumber);
 						isemriYukleHNXGom.Zaman = DateTime.Now;
@@ -1336,17 +1388,24 @@ namespace Tavlama
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
 						if (UygunFurHNX.Count > 0) 
 						{
-							int FinalFarkFur = 100;
+							double FinalFarkFur = 10000;
 							int MinRowGomFur = 0;
 							for (int t = 0; t < UygunFurHNX.Count; t++)
 							{
-								var LoadHNXFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[t].BaseNumber);
-								int FarkG = Math.Abs(LoadHNXFur.Kolonno - YukleEsleme.Kolonno);
-								if (FarkG < FinalFarkFur)
+								double FARKC = Math.Abs(ISYUKLOKASYON - UygunFurHNX[t].Xkor);
+								if (FARKC < FinalFarkGom)
 								{
-									FinalFarkFur = FarkG;
+									FinalFarkFur = FARKC;
 									MinRowGomFur = t;
+
 								}
+							//	var LoadHNXFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[t].BaseNumber);
+							//	int FarkG = Math.Abs(LoadHNXFur.Kolonno - YukleEsleme.Kolonno);
+							//	if (FarkG < FinalFarkFur)
+							//	{
+							//		FinalFarkFur = FarkG;
+							//		MinRowGomFur = t;
+							//	}
 							}
 							var YukleFurHNX = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[MinRowGomFur].BaseNumber);
 							isemriYukleHNXFirin.Zaman = DateTime.Now;
@@ -1400,7 +1459,7 @@ namespace Tavlama
 
 						}
 						var YukleEsleme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygun[MinRow].No);
-						
+						int ISYUKLOKASYON = Convert.ToInt32(KaideListesi.Find(e => e.No == hnxUygun[MinRow].No).Xkor);
 						int emir_sirasiLOAD = 1;
 						foreach (Kaidebobin kb in item.List)
 						{
@@ -1435,33 +1494,35 @@ namespace Tavlama
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						int FinalFarkGom = 100;
+						
 						int MinRowGom = 0;
-						for (int t = 0; t < hnxUygunGom.Count; t++)
-						{
-							var LoadHNXGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[t].BaseNumber);
-							int FarkG = Math.Abs(LoadHNXGom.Kolonno - YukleEsleme.Kolonno);
-							if (FarkG < FinalFarkGom)
+						double FinalFarkGom = 10000;
+							int MinRowGomFur = 0;
+							for (int t = 0; t < hnxUygunGom.Count; t++)
 							{
-								FinalFarkGom = FarkG;
-								MinRowGom = t;
+								double FARKC = Math.Abs(ISYUKLOKASYON - hnxUygunGom[t].Xkor);
+								if (FARKC < FinalFarkGom)
+								{
+									FinalFarkGom = FARKC;
+									MinRowGomFur = t;
+
+								}
 							}
-						}
 						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[MinRowGom].BaseNumber);
 						isemriYukleHNXGom.Zaman = DateTime.Now;
 						isemriYukleHNXGom.IntZaman = 0.0;
 						isemriYukleHNXGom.AtmosphereTuru = "HNX";
 						isemriYukleHNXGom.AtacmanTipi = "Konvektor Aparatı";
 						isemriYukleHNXGom.Issuresi = 2.5;
-						isemriYukleHNXGom.Konum1Kaide = hnxUygunGom[MinRowGom].BaseNumber.ToString();
+						isemriYukleHNXGom.Konum1Kaide = hnxUygunGom[MinRowGomFur].BaseNumber.ToString();
 						isemriYukleHNXGom.Konum1Kolon = YukleGom.Kolonno + "";
 						isemriYukleHNXGom.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
 						isemriYukleHNXGom.Konum2Kolon = YukleEsleme.Kolonno + "";
-						isemriYukleHNXGom.Yapilacakis = hnxUygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
+						isemriYukleHNXGom.Yapilacakis = hnxUygunGom[MinRowGomFur].No + "-- Nolu  Gomlek Tak";
 						isemriYukleHNXGom.isTipi = WorkType.gomlek_tak;
 						isemriYukleHNXGom.isDetayi = WorkTypeDetail.kaide_yukle;
-						isemriYukleHNXGom.equipmentNumber = hnxUygunGom[MinRowGom].No.ToString();
-						hnxUygunGom.RemoveAt(MinRowGom);
+						isemriYukleHNXGom.equipmentNumber = hnxUygunGom[MinRowGomFur].No.ToString();
+						hnxUygunGom.RemoveAt(MinRowGomFur);
 						isemriYukleHNXGom.Yapilacakisturu = "Gomlek yukle";
 						id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleHNXGom.Issuresi, isemriYukleHNXGom.AtmosphereTuru);
 						isemriYukleHNXGom.UniqueID = id_yukleHNX;
@@ -1476,16 +1537,18 @@ namespace Tavlama
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
 						if (UygunFurHNX.Count > 0) 
 						{
-							int FinalFarkFur = 100;
-							int MinRowGomFur = 0;
+							
+
+							double FinalFarkFur = 10000;
+							int MinRowFur = 0;
 							for (int t = 0; t < UygunFurHNX.Count; t++)
 							{
-								var LoadHNXFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[t].BaseNumber);
-								int FarkG = Math.Abs(LoadHNXFur.Kolonno - YukleEsleme.Kolonno);
-								if (FarkG < FinalFarkFur)
+								double FARKC = Math.Abs(ISYUKLOKASYON - UygunFurHNX[t].Xkor);
+								if (FARKC < FinalFarkFur)
 								{
-									FinalFarkFur = FarkG;
-									MinRowGomFur = t;
+									FinalFarkFur = FARKC;
+									MinRowFur = t;
+
 								}
 							}
 							var YukleFurHNX = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[MinRowGomFur].BaseNumber);
@@ -1544,7 +1607,7 @@ namespace Tavlama
 						}
 
 						var YukleEsleme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2Uygun[MinRow].No);
-						
+						int ISYUKLOKASYON = Convert.ToInt32(KaideListesi.Find(e => e.No == h2Uygun[MinRow].No).Xkor);
 						int emir_sirasiLOAD = 1;
 						foreach (Kaidebobin kb in item.List)
 						{
@@ -1577,18 +1640,20 @@ namespace Tavlama
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						int FinalFarkGom = 100;
 						int MinRowGom = 0;
+						double FinalFarkGom = 10000;
+						
 						for (int t = 0; t < h2UygunGom.Count; t++)
 						{
-							var LoadHNXGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[t].BaseNumber);
-							int FarkG = Math.Abs(LoadHNXGom.Kolonno - YukleEsleme.Kolonno);
-							if (FarkG < FinalFarkGom)
+							double FARKC = Math.Abs(ISYUKLOKASYON - h2UygunGom[t].Xkor);
+							if (FARKC < FinalFarkGom)
 							{
-								FinalFarkGom = FarkG;
+								FinalFarkGom = FARKC;
 								MinRowGom = t;
+
 							}
 						}
+						
 						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[MinRowGom].BaseNumber);
 						isemriYukleH2Gom.Zaman = DateTime.Now;
 						isemriYukleH2Gom.IntZaman = 0.0;
@@ -1623,16 +1688,16 @@ namespace Tavlama
 
 						if (UygunFurH2.Count > 0)
 						{
-							int FinalFarkFur = 100;
+							double FinalFarkFur = 10000;
 							int MinRowGomFur = 0;
 							for (int t = 0; t < UygunFurH2.Count; t++)
 							{
-								var LoadHNXFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2[t].BaseNumber);
-								int FarkG = Math.Abs(LoadHNXFur.Kolonno - YukleEsleme.Kolonno);
-								if (FarkG < FinalFarkFur)
+								double FARKC = Math.Abs(ISYUKLOKASYON - UygunFurH2[t].Xkor);
+								if (FARKC < FinalFarkGom)
 								{
-									FinalFarkFur = FarkG;
+									FinalFarkFur = FARKC;
 									MinRowGomFur = t;
+
 								}
 							}
 							var YukleFurH2 = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2[MinRowGomFur].BaseNumber);
@@ -1682,7 +1747,7 @@ namespace Tavlama
 
 						}
 						var YukleEsleme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2Uygun[MinRow].No);
-						
+						int ISYUKLOKASYON = Convert.ToInt32(KaideListesi.Find(e => e.No == h2Uygun[MinRow].No).Xkor);
 						int emir_sirasiLOAD = 1;
 						foreach (Kaidebobin kb in item.List)
 						{
@@ -1717,16 +1782,17 @@ namespace Tavlama
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						int FinalFarkGom = 100;
 						int MinRowGom = 0;
+						double FinalFarkGom = 10000;
+
 						for (int t = 0; t < h2UygunGom.Count; t++)
 						{
-							var LoadHNXGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[t].BaseNumber);
-							int FarkG = Math.Abs(LoadHNXGom.Kolonno - YukleEsleme.Kolonno);
-							if (FarkG < FinalFarkGom)
+							double FARKC = Math.Abs(ISYUKLOKASYON - h2UygunGom[t].Xkor);
+							if (FARKC < FinalFarkGom)
 							{
-								FinalFarkGom = FarkG;
+								FinalFarkGom = FARKC;
 								MinRowGom = t;
+
 							}
 						}
 						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[MinRowGom].BaseNumber);

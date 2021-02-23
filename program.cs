@@ -88,6 +88,7 @@ namespace Tavlama
 
 				//	IsemriTableTZ = IsemriTable.Where(o => o.Zaman.Year == 1900).ToList();
 
+				
 				IsemriTableTZ = IsemriTable.Where(o => o.Zaman.Year < 2000).ToList();
 				IsemriTableTZ = IsemriTableTZ.OrderByDescending(o => o.skor).ToList();
 				IsemriTableTN = IsemriTable.Where(o => o.Zaman.Year >= 2000).ToList();
