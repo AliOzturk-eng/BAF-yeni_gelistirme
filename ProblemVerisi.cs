@@ -1340,9 +1340,10 @@ namespace Tavlama
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						double FinalFarkGom = 10000;
-						int MinRowGom = 0;
-						for(int t=0;t<hnxUygunGom.Count;t++)
+						if (hnxUygunGom.Count > 0) { 
+					    	double FinalFarkGom = 10000;
+					    	int MinRowGom = 0;
+					    	for(int t=0;t<hnxUygunGom.Count;t++)
 						{
 							double FARKC = Math.Abs(ISYUKLOKASYON - hnxUygunGom[t].Xkor);
 							if (FARKC < FinalFarkGom)
@@ -1359,41 +1360,41 @@ namespace Tavlama
 						//		MinRowGom = t;
 						//	}
 						}
-						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[MinRowGom].BaseNumber);
-						isemriYukleHNXGom.Zaman = DateTime.Now;
-						isemriYukleHNXGom.IntZaman = 0.0;
-						isemriYukleHNXGom.AtmosphereTuru = "HNX";
-						isemriYukleHNXGom.AtacmanTipi = "Konvektor Aparatı";
-						isemriYukleHNXGom.Issuresi = 2.5;
-						isemriYukleHNXGom.Konum1Kaide = hnxUygunGom[MinRowGom].BaseNumber.ToString();
-						isemriYukleHNXGom.Konum1Kolon = YukleGom.Kolonno + "";
-						isemriYukleHNXGom.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
-						isemriYukleHNXGom.Konum2Kolon = YukleEsleme.Kolonno + "";
-						isemriYukleHNXGom.Yapilacakis = hnxUygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
-						isemriYukleHNXGom.isTipi = WorkType.gomlek_tak;
-						isemriYukleHNXGom.isDetayi = WorkTypeDetail.kaide_yukle;
-						isemriYukleHNXGom.equipmentNumber = hnxUygunGom[MinRowGom].No.ToString();
-						hnxUygunGom.RemoveAt(MinRowGom);
-						isemriYukleHNXGom.Yapilacakisturu = "Gomlek yukle";
-						id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleHNXGom.Issuresi, isemriYukleHNXGom.AtmosphereTuru);
-						isemriYukleHNXGom.UniqueID = id_yukleHNX;
-						isemriYukleHNXGom.skor = skorhesapla(isemriYukleHNXGom.UniqueID);
-						//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
-						YuklemeIsListe.Add(isemriYukleHNXGom);
-						emir_sirasiLOAD = emir_sirasiLOAD + 1;
-						
+					    	var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[MinRowGom].BaseNumber);
+					    	isemriYukleHNXGom.Zaman = DateTime.Now;
+					    	isemriYukleHNXGom.IntZaman = 0.0;
+					    	isemriYukleHNXGom.AtmosphereTuru = "HNX";
+					    	isemriYukleHNXGom.AtacmanTipi = "Konvektor Aparatı";
+					    	isemriYukleHNXGom.Issuresi = 2.5;
+					    	isemriYukleHNXGom.Konum1Kaide = hnxUygunGom[MinRowGom].BaseNumber.ToString();
+					    	isemriYukleHNXGom.Konum1Kolon = YukleGom.Kolonno + "";
+					    	isemriYukleHNXGom.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
+					    	isemriYukleHNXGom.Konum2Kolon = YukleEsleme.Kolonno + "";
+					    	isemriYukleHNXGom.Yapilacakis = hnxUygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
+					    	isemriYukleHNXGom.isTipi = WorkType.gomlek_tak;
+					    	isemriYukleHNXGom.isDetayi = WorkTypeDetail.kaide_yukle;
+					    	isemriYukleHNXGom.equipmentNumber = hnxUygunGom[MinRowGom].No.ToString();
+					    	hnxUygunGom.RemoveAt(MinRowGom);
+					    	isemriYukleHNXGom.Yapilacakisturu = "Gomlek yukle";
+					    	id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleHNXGom.Issuresi, isemriYukleHNXGom.AtmosphereTuru);
+					    	isemriYukleHNXGom.UniqueID = id_yukleHNX;
+					    	isemriYukleHNXGom.skor = skorhesapla(isemriYukleHNXGom.UniqueID);
+					    	//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+					    	YuklemeIsListe.Add(isemriYukleHNXGom);
+					    	emir_sirasiLOAD = emir_sirasiLOAD + 1;
+						}
 						IsemriL isemriYukleHNXFirin = new IsemriL();
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						if (UygunFurHNX.Count > 0) 
+						if (hnxUygunGom.Count > 0 && UygunFurHNX.Count > 0) 
 						{
 							double FinalFarkFur = 10000;
 							int MinRowGomFur = 0;
 							for (int t = 0; t < UygunFurHNX.Count; t++)
 							{
 								double FARKC = Math.Abs(ISYUKLOKASYON - UygunFurHNX[t].Xkor);
-								if (FARKC < FinalFarkGom)
+								if (FARKC < FinalFarkFur)
 								{
 									FinalFarkFur = FARKC;
 									MinRowGomFur = t;
@@ -1494,11 +1495,11 @@ namespace Tavlama
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						
-						int MinRowGom = 0;
-						double FinalFarkGom = 10000;
-							int MinRowGomFur = 0;
-							for (int t = 0; t < hnxUygunGom.Count; t++)
+						if (hnxUygunGom.Count > 0) { 
+					    	int MinRowGom = 0;
+					    	double FinalFarkGom = 10000;
+					    		int MinRowGomFur = 0;
+					    		for (int t = 0; t < hnxUygunGom.Count; t++)
 							{
 								double FARKC = Math.Abs(ISYUKLOKASYON - hnxUygunGom[t].Xkor);
 								if (FARKC < FinalFarkGom)
@@ -1508,34 +1509,34 @@ namespace Tavlama
 
 								}
 							}
-						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[MinRowGom].BaseNumber);
-						isemriYukleHNXGom.Zaman = DateTime.Now;
-						isemriYukleHNXGom.IntZaman = 0.0;
-						isemriYukleHNXGom.AtmosphereTuru = "HNX";
-						isemriYukleHNXGom.AtacmanTipi = "Konvektor Aparatı";
-						isemriYukleHNXGom.Issuresi = 2.5;
-						isemriYukleHNXGom.Konum1Kaide = hnxUygunGom[MinRowGomFur].BaseNumber.ToString();
-						isemriYukleHNXGom.Konum1Kolon = YukleGom.Kolonno + "";
-						isemriYukleHNXGom.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
-						isemriYukleHNXGom.Konum2Kolon = YukleEsleme.Kolonno + "";
-						isemriYukleHNXGom.Yapilacakis = hnxUygunGom[MinRowGomFur].No + "-- Nolu  Gomlek Tak";
-						isemriYukleHNXGom.isTipi = WorkType.gomlek_tak;
-						isemriYukleHNXGom.isDetayi = WorkTypeDetail.kaide_yukle;
-						isemriYukleHNXGom.equipmentNumber = hnxUygunGom[MinRowGomFur].No.ToString();
-						hnxUygunGom.RemoveAt(MinRowGomFur);
-						isemriYukleHNXGom.Yapilacakisturu = "Gomlek yukle";
-						id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleHNXGom.Issuresi, isemriYukleHNXGom.AtmosphereTuru);
-						isemriYukleHNXGom.UniqueID = id_yukleHNX;
-						isemriYukleHNXGom.skor = skorhesapla(isemriYukleHNXGom.UniqueID);
-						//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
-						YuklemeIsListe.Add(isemriYukleHNXGom);
-						emir_sirasiLOAD = emir_sirasiLOAD + 1;
-
+					    	var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[MinRowGom].BaseNumber);
+					    	isemriYukleHNXGom.Zaman = DateTime.Now;
+					    	isemriYukleHNXGom.IntZaman = 0.0;
+					    	isemriYukleHNXGom.AtmosphereTuru = "HNX";
+					    	isemriYukleHNXGom.AtacmanTipi = "Konvektor Aparatı";
+					    	isemriYukleHNXGom.Issuresi = 2.5;
+					    	isemriYukleHNXGom.Konum1Kaide = hnxUygunGom[MinRowGomFur].BaseNumber.ToString();
+					    	isemriYukleHNXGom.Konum1Kolon = YukleGom.Kolonno + "";
+					    	isemriYukleHNXGom.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
+					    	isemriYukleHNXGom.Konum2Kolon = YukleEsleme.Kolonno + "";
+					    	isemriYukleHNXGom.Yapilacakis = hnxUygunGom[MinRowGomFur].No + "-- Nolu  Gomlek Tak";
+					    	isemriYukleHNXGom.isTipi = WorkType.gomlek_tak;
+					    	isemriYukleHNXGom.isDetayi = WorkTypeDetail.kaide_yukle;
+					    	isemriYukleHNXGom.equipmentNumber = hnxUygunGom[MinRowGomFur].No.ToString();
+					    	hnxUygunGom.RemoveAt(MinRowGomFur);
+					    	isemriYukleHNXGom.Yapilacakisturu = "Gomlek yukle";
+					    	id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleHNXGom.Issuresi, isemriYukleHNXGom.AtmosphereTuru);
+					    	isemriYukleHNXGom.UniqueID = id_yukleHNX;
+					    	isemriYukleHNXGom.skor = skorhesapla(isemriYukleHNXGom.UniqueID);
+					    	//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+					    	YuklemeIsListe.Add(isemriYukleHNXGom);
+					    	emir_sirasiLOAD = emir_sirasiLOAD + 1;
+						}
 						IsemriL isemriYukleHNXFirin = new IsemriL();
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						if (UygunFurHNX.Count > 0) 
+						if (hnxUygunGom.Count > 0 && UygunFurHNX.Count > 0) 
 						{
 							
 
@@ -1551,21 +1552,21 @@ namespace Tavlama
 
 								}
 							}
-							var YukleFurHNX = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[MinRowGomFur].BaseNumber);
+							var YukleFurHNX = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[MinRowFur].BaseNumber);
 							isemriYukleHNXFirin.Zaman = DateTime.Now;
 							isemriYukleHNXFirin.IntZaman = 0.0;
 							isemriYukleHNXFirin.AtmosphereTuru = "HNX";
 							isemriYukleHNXFirin.AtacmanTipi = "Konvektor Aparatı";
 							isemriYukleHNXFirin.Issuresi = 2.5;
-							isemriYukleHNXFirin.Konum1Kaide = UygunFurHNX[MinRowGomFur].BaseNumber.ToString();
+							isemriYukleHNXFirin.Konum1Kaide = UygunFurHNX[MinRowFur].BaseNumber.ToString();
 							isemriYukleHNXFirin.Konum1Kolon = YukleFurHNX.Kolonno + "";
 							isemriYukleHNXFirin.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
 							isemriYukleHNXFirin.Konum2Kolon = YukleEsleme.Kolonno + "";
-							isemriYukleHNXFirin.Yapilacakis = UygunFurHNX[MinRowGomFur].No + "-- Nolu  Firin Tak";
+							isemriYukleHNXFirin.Yapilacakis = UygunFurHNX[MinRowFur].No + "-- Nolu  Firin Tak";
 							isemriYukleHNXFirin.isTipi = WorkType.firin_tak;
 							isemriYukleHNXFirin.isDetayi = WorkTypeDetail.kaide_yukle;
-							isemriYukleHNXFirin.equipmentNumber = UygunFurHNX[MinRowGomFur].No.ToString();
-							UygunFurHNX.RemoveAt(MinRowGomFur);
+							isemriYukleHNXFirin.equipmentNumber = UygunFurHNX[MinRowFur].No.ToString();
+							UygunFurHNX.RemoveAt(MinRowFur);
 							isemriYukleHNXFirin.Yapilacakisturu = "Fırın yukle";
 							id_yukleHNX = idStringHazirla(3, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleHNXFirin.Issuresi, isemriYukleHNXFirin.AtmosphereTuru);
 							isemriYukleHNXFirin.UniqueID = id_yukleHNX;
@@ -1635,15 +1636,16 @@ namespace Tavlama
 							YuklemeIsListe.Add(isemriYukleH2);
 							emir_sirasiLOAD = emir_sirasiLOAD + 1;
 						}
-						
-						IsemriL isemriYukleH2Gom = new IsemriL();
-						//hnxUygunGom[t].BaseNumber;
-						//isemriYukleHNX e gömlek ekle
-						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						int MinRowGom = 0;
-						double FinalFarkGom = 10000;
-						
-						for (int t = 0; t < h2UygunGom.Count; t++)
+
+						if (h2UygunGom.Count > 0) { 
+					    	IsemriL isemriYukleH2Gom = new IsemriL();
+					    	//hnxUygunGom[t].BaseNumber;
+					    	//isemriYukleHNX e gömlek ekle
+					    	//YuklemeIsListe.Add(isemriYukleHNXGom);
+					    	int MinRowGom = 0;
+					    	double FinalFarkGom = 10000;
+					    
+					    	for (int t = 0; t < h2UygunGom.Count; t++)
 						{
 							double FARKC = Math.Abs(ISYUKLOKASYON - h2UygunGom[t].Xkor);
 							if (FARKC < FinalFarkGom)
@@ -1653,29 +1655,30 @@ namespace Tavlama
 
 							}
 						}
-						
-						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[MinRowGom].BaseNumber);
-						isemriYukleH2Gom.Zaman = DateTime.Now;
-						isemriYukleH2Gom.IntZaman = 0.0;
-						isemriYukleH2Gom.AtmosphereTuru = "H2";
-						isemriYukleH2Gom.AtacmanTipi = "Konvektor Aparatı";
-						isemriYukleH2Gom.Issuresi = 2.5;
-						isemriYukleH2Gom.Konum1Kaide = h2UygunGom[MinRowGom].BaseNumber.ToString();
-						isemriYukleH2Gom.Konum1Kolon = YukleGom.Kolonno + "";
-						isemriYukleH2Gom.Konum2Kaide = Convert.ToString(h2Uygun[MinRow].No);
-						isemriYukleH2Gom.Konum2Kolon = YukleEsleme.Kolonno + "";
-						isemriYukleH2Gom.Yapilacakis = h2UygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
-						isemriYukleH2Gom.isTipi = WorkType.gomlek_tak;
-						isemriYukleH2Gom.isDetayi = WorkTypeDetail.kaide_yukle;
-						isemriYukleH2Gom.equipmentNumber = h2UygunGom[MinRowGom].No.ToString();
-						h2UygunGom.RemoveAt(MinRowGom);
-						isemriYukleH2Gom.Yapilacakisturu = "Gomlek yukle";
-						id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleH2Gom.Issuresi, isemriYukleH2Gom.AtmosphereTuru);
-						isemriYukleH2Gom.UniqueID = id_yukleHNX;
-						isemriYukleH2Gom.skor = skorhesapla(isemriYukleH2Gom.UniqueID);
-						//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
-						YuklemeIsListe.Add(isemriYukleH2Gom);
-						emir_sirasiLOAD = emir_sirasiLOAD + 1;
+					    
+					    	var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[MinRowGom].BaseNumber);
+					    	isemriYukleH2Gom.Zaman = DateTime.Now;
+					    	isemriYukleH2Gom.IntZaman = 0.0;
+					    	isemriYukleH2Gom.AtmosphereTuru = "H2";
+					    	isemriYukleH2Gom.AtacmanTipi = "Konvektor Aparatı";
+					    	isemriYukleH2Gom.Issuresi = 2.5;
+					    	isemriYukleH2Gom.Konum1Kaide = h2UygunGom[MinRowGom].BaseNumber.ToString();
+					    	isemriYukleH2Gom.Konum1Kolon = YukleGom.Kolonno + "";
+					    	isemriYukleH2Gom.Konum2Kaide = Convert.ToString(h2Uygun[MinRow].No);
+					    	isemriYukleH2Gom.Konum2Kolon = YukleEsleme.Kolonno + "";
+					    	isemriYukleH2Gom.Yapilacakis = h2UygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
+					    	isemriYukleH2Gom.isTipi = WorkType.gomlek_tak;
+					    	isemriYukleH2Gom.isDetayi = WorkTypeDetail.kaide_yukle;
+					    	isemriYukleH2Gom.equipmentNumber = h2UygunGom[MinRowGom].No.ToString();
+					    	h2UygunGom.RemoveAt(MinRowGom);
+					    	isemriYukleH2Gom.Yapilacakisturu = "Gomlek yukle";
+					    	id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleH2Gom.Issuresi, isemriYukleH2Gom.AtmosphereTuru);
+					    	isemriYukleH2Gom.UniqueID = id_yukleHNX;
+					    	isemriYukleH2Gom.skor = skorhesapla(isemriYukleH2Gom.UniqueID);
+					    	//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+					    	YuklemeIsListe.Add(isemriYukleH2Gom);
+					    	emir_sirasiLOAD = emir_sirasiLOAD + 1;
+					}
 						IsemriL isemriYukleH2Firin = new IsemriL();
 						if (61 <= Convert.ToInt32(YukleEsleme.BaseNumber) && Convert.ToInt32(YukleEsleme.BaseNumber) <= 76)
 						{
@@ -1686,14 +1689,14 @@ namespace Tavlama
 							UygunFurH2 = UygunFurH2Faz2; 
 						}
 
-						if (UygunFurH2.Count > 0)
+						if (h2UygunGom.Count > 0 && UygunFurH2.Count > 0)
 						{
 							double FinalFarkFur = 10000;
 							int MinRowGomFur = 0;
 							for (int t = 0; t < UygunFurH2.Count; t++)
 							{
 								double FARKC = Math.Abs(ISYUKLOKASYON - UygunFurH2[t].Xkor);
-								if (FARKC < FinalFarkGom)
+								if (FARKC < FinalFarkFur)
 								{
 									FinalFarkFur = FARKC;
 									MinRowGomFur = t;
@@ -1782,10 +1785,11 @@ namespace Tavlama
 						//hnxUygunGom[t].BaseNumber;
 						//isemriYukleHNX e gömlek ekle
 						//YuklemeIsListe.Add(isemriYukleHNXGom);
-						int MinRowGom = 0;
-						double FinalFarkGom = 10000;
-
-						for (int t = 0; t < h2UygunGom.Count; t++)
+						if (h2UygunGom.Count > 0) { 
+					    	int MinRowGom = 0;
+					    	double FinalFarkGom = 10000;
+					    
+					    	for (int t = 0; t < h2UygunGom.Count; t++)
 						{
 							double FARKC = Math.Abs(ISYUKLOKASYON - h2UygunGom[t].Xkor);
 							if (FARKC < FinalFarkGom)
@@ -1795,28 +1799,29 @@ namespace Tavlama
 
 							}
 						}
-						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[MinRowGom].BaseNumber);
-						isemriYukleH2Gom.Zaman = DateTime.Now;
-						isemriYukleH2Gom.IntZaman = 0.0;
-						isemriYukleH2Gom.AtmosphereTuru = "H2";
-						isemriYukleH2Gom.AtacmanTipi = "Konvektor Aparatı";
-						isemriYukleH2Gom.Issuresi = 2.5;
-						isemriYukleH2Gom.Konum1Kaide = h2UygunGom[MinRowGom].BaseNumber.ToString();
-						isemriYukleH2Gom.Konum1Kolon = YukleGom.Kolonno + "";
-						isemriYukleH2Gom.Konum2Kaide = Convert.ToString(h2Uygun[MinRow].No);
-						isemriYukleH2Gom.Konum2Kolon = YukleEsleme.Kolonno + "";
-						isemriYukleH2Gom.Yapilacakis = h2UygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
-						isemriYukleH2Gom.isTipi = WorkType.gomlek_tak;
-						isemriYukleH2Gom.isDetayi = WorkTypeDetail.kaide_yukle;
-						isemriYukleH2Gom.equipmentNumber = h2UygunGom[MinRowGom].No.ToString();
-						h2UygunGom.RemoveAt(MinRowGom);
-						isemriYukleH2Gom.Yapilacakisturu = "Gomlek yukle";
-						id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleH2Gom.Issuresi, isemriYukleH2Gom.AtmosphereTuru);
-						isemriYukleH2Gom.UniqueID = id_yukleHNX;
-						isemriYukleH2Gom.skor = skorhesapla(isemriYukleH2Gom.UniqueID);
-						//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
-						YuklemeIsListe.Add(isemriYukleH2Gom);
-						emir_sirasiLOAD = emir_sirasiLOAD + 1;
+					    	var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[MinRowGom].BaseNumber);
+					    	isemriYukleH2Gom.Zaman = DateTime.Now;
+					    	isemriYukleH2Gom.IntZaman = 0.0;
+					    	isemriYukleH2Gom.AtmosphereTuru = "H2";
+					    	isemriYukleH2Gom.AtacmanTipi = "Konvektor Aparatı";
+					    	isemriYukleH2Gom.Issuresi = 2.5;
+					    	isemriYukleH2Gom.Konum1Kaide = h2UygunGom[MinRowGom].BaseNumber.ToString();
+					    	isemriYukleH2Gom.Konum1Kolon = YukleGom.Kolonno + "";
+					    	isemriYukleH2Gom.Konum2Kaide = Convert.ToString(h2Uygun[MinRow].No);
+					    	isemriYukleH2Gom.Konum2Kolon = YukleEsleme.Kolonno + "";
+					    	isemriYukleH2Gom.Yapilacakis = h2UygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
+					    	isemriYukleH2Gom.isTipi = WorkType.gomlek_tak;
+					    	isemriYukleH2Gom.isDetayi = WorkTypeDetail.kaide_yukle;
+					    	isemriYukleH2Gom.equipmentNumber = h2UygunGom[MinRowGom].No.ToString();
+					    	h2UygunGom.RemoveAt(MinRowGom);
+					    	isemriYukleH2Gom.Yapilacakisturu = "Gomlek yukle";
+					    	id_yukleHNX = idStringHazirla(2, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleH2Gom.Issuresi, isemriYukleH2Gom.AtmosphereTuru);
+					    	isemriYukleH2Gom.UniqueID = id_yukleHNX;
+					    	isemriYukleH2Gom.skor = skorhesapla(isemriYukleH2Gom.UniqueID);
+					    	//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+					    	YuklemeIsListe.Add(isemriYukleH2Gom);
+					    	emir_sirasiLOAD = emir_sirasiLOAD + 1;
+						}
 						IsemriL isemriYukleH2Firin = new IsemriL();
 						if (61 <= Convert.ToInt32(YukleEsleme.BaseNumber) && Convert.ToInt32(YukleEsleme.BaseNumber) <= 76)
 						{
@@ -1826,7 +1831,7 @@ namespace Tavlama
 						{
 							UygunFurH2 = UygunFurH2Faz2;
 						}
-						if (UygunFurH2.Count > 0)
+						if (h2UygunGom.Count > 0 && UygunFurH2.Count > 0)
 						{
 							int FinalFarkFur = 100;
 							int MinRowGomFur = 0;
