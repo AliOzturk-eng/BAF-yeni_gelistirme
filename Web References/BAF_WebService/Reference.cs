@@ -44,6 +44,8 @@ namespace Tavlama.BAF_WebService {
         
         private System.Threading.SendOrPostCallback GetSsysBafZoneDefinitionsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetSsysForcedCoolingOverviewOperationCompleted;
+        
         private System.Threading.SendOrPostCallback CreateSsysWorkOrderOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
@@ -104,6 +106,9 @@ namespace Tavlama.BAF_WebService {
         
         /// <remarks/>
         public event GetSsysBafZoneDefinitionsCompletedEventHandler GetSsysBafZoneDefinitionsCompleted;
+        
+        /// <remarks/>
+        public event GetSsysForcedCoolingOverviewCompletedEventHandler GetSsysForcedCoolingOverviewCompleted;
         
         /// <remarks/>
         public event CreateSsysWorkOrderCompletedEventHandler CreateSsysWorkOrderCompleted;
@@ -298,6 +303,33 @@ namespace Tavlama.BAF_WebService {
             if ((this.GetSsysBafZoneDefinitionsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetSsysBafZoneDefinitionsCompleted(this, new GetSsysBafZoneDefinitionsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSsysForcedCoolingOverview", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetSsysForcedCoolingOverview() {
+            object[] results = this.Invoke("GetSsysForcedCoolingOverview", new object[0]);
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetSsysForcedCoolingOverviewAsync() {
+            this.GetSsysForcedCoolingOverviewAsync(null);
+        }
+        
+        /// <remarks/>
+        public void GetSsysForcedCoolingOverviewAsync(object userState) {
+            if ((this.GetSsysForcedCoolingOverviewOperationCompleted == null)) {
+                this.GetSsysForcedCoolingOverviewOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSsysForcedCoolingOverviewOperationCompleted);
+            }
+            this.InvokeAsync("GetSsysForcedCoolingOverview", new object[0], this.GetSsysForcedCoolingOverviewOperationCompleted, userState);
+        }
+        
+        private void OnGetSsysForcedCoolingOverviewOperationCompleted(object arg) {
+            if ((this.GetSsysForcedCoolingOverviewCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetSsysForcedCoolingOverviewCompleted(this, new GetSsysForcedCoolingOverviewCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -531,6 +563,32 @@ namespace Tavlama.BAF_WebService {
         private object[] results;
         
         internal GetSsysBafZoneDefinitionsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    public delegate void GetSsysForcedCoolingOverviewCompletedEventHandler(object sender, GetSsysForcedCoolingOverviewCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetSsysForcedCoolingOverviewCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetSsysForcedCoolingOverviewCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

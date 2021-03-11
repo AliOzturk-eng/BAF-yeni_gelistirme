@@ -245,7 +245,8 @@ namespace Tavlama
 			BobinBatchList = objService.GetSsysBatchList("").Tables[0];
 			//objService.CreateSsysWorkOrder(strObjeNo, strObjeTipi, strEmirTipi, strAlHat, strBrkHat, strAciklama);
 			OOtahmini_proses_bitim = DTtahmini_proses_bitim;
-			
+			DataTable CS = new DataTable(); 
+			CS = objService.GetSsysForcedCoolingOverview().Tables[0];
 
 			SSYSEquipmentList = new List<SSYSEquipment>();
 			foreach (DataRow dr in DTEquipList.Rows)

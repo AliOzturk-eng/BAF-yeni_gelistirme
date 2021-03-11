@@ -129,6 +129,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetSsysForcedCoolingOverview">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSsysForcedCoolingOverviewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSsysForcedCoolingOverviewResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CreateSsysWorkOrder">
         <s:complexType>
           <s:sequence>
@@ -198,6 +215,12 @@
   <wsdl:message name="GetSsysBafZoneDefinitionsSoapOut">
     <wsdl:part name="parameters" element="tns:GetSsysBafZoneDefinitionsResponse" />
   </wsdl:message>
+  <wsdl:message name="GetSsysForcedCoolingOverviewSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSsysForcedCoolingOverview" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysForcedCoolingOverviewSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSsysForcedCoolingOverviewResponse" />
+  </wsdl:message>
   <wsdl:message name="CreateSsysWorkOrderSoapIn">
     <wsdl:part name="parameters" element="tns:CreateSsysWorkOrder" />
   </wsdl:message>
@@ -234,6 +257,10 @@
   </wsdl:message>
   <wsdl:message name="GetSsysBafZoneDefinitionsHttpGetIn" />
   <wsdl:message name="GetSsysBafZoneDefinitionsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetSsysForcedCoolingOverviewHttpGetIn" />
+  <wsdl:message name="GetSsysForcedCoolingOverviewHttpGetOut">
     <wsdl:part name="Body" element="tns:DataSet" />
   </wsdl:message>
   <wsdl:message name="CreateSsysWorkOrderHttpGetIn">
@@ -279,6 +306,10 @@
   <wsdl:message name="GetSsysBafZoneDefinitionsHttpPostOut">
     <wsdl:part name="Body" element="tns:DataSet" />
   </wsdl:message>
+  <wsdl:message name="GetSsysForcedCoolingOverviewHttpPostIn" />
+  <wsdl:message name="GetSsysForcedCoolingOverviewHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
   <wsdl:message name="CreateSsysWorkOrderHttpPostIn">
     <wsdl:part name="intVincId" type="s:string" />
     <wsdl:part name="strPartiNo" type="s:string" />
@@ -319,6 +350,10 @@
       <wsdl:input message="tns:GetSsysBafZoneDefinitionsSoapIn" />
       <wsdl:output message="tns:GetSsysBafZoneDefinitionsSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetSsysForcedCoolingOverview">
+      <wsdl:input message="tns:GetSsysForcedCoolingOverviewSoapIn" />
+      <wsdl:output message="tns:GetSsysForcedCoolingOverviewSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateSsysWorkOrder">
       <wsdl:input message="tns:CreateSsysWorkOrderSoapIn" />
       <wsdl:output message="tns:CreateSsysWorkOrderSoapOut" />
@@ -353,6 +388,10 @@
       <wsdl:input message="tns:GetSsysBafZoneDefinitionsHttpGetIn" />
       <wsdl:output message="tns:GetSsysBafZoneDefinitionsHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetSsysForcedCoolingOverview">
+      <wsdl:input message="tns:GetSsysForcedCoolingOverviewHttpGetIn" />
+      <wsdl:output message="tns:GetSsysForcedCoolingOverviewHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateSsysWorkOrder">
       <wsdl:input message="tns:CreateSsysWorkOrderHttpGetIn" />
       <wsdl:output message="tns:CreateSsysWorkOrderHttpGetOut" />
@@ -386,6 +425,10 @@
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <wsdl:input message="tns:GetSsysBafZoneDefinitionsHttpPostIn" />
       <wsdl:output message="tns:GetSsysBafZoneDefinitionsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysForcedCoolingOverview">
+      <wsdl:input message="tns:GetSsysForcedCoolingOverviewHttpPostIn" />
+      <wsdl:output message="tns:GetSsysForcedCoolingOverviewHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="CreateSsysWorkOrder">
       <wsdl:input message="tns:CreateSsysWorkOrderHttpPostIn" />
@@ -450,6 +493,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <soap:operation soapAction="http://tempuri.org/GetSsysBafZoneDefinitions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysForcedCoolingOverview">
+      <soap:operation soapAction="http://tempuri.org/GetSsysForcedCoolingOverview" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -532,6 +584,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSsysForcedCoolingOverview">
+      <soap12:operation soapAction="http://tempuri.org/GetSsysForcedCoolingOverview" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateSsysWorkOrder">
       <soap12:operation soapAction="http://tempuri.org/CreateSsysWorkOrder" style="document" />
       <wsdl:input>
@@ -607,6 +668,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSsysForcedCoolingOverview">
+      <http:operation location="/GetSsysForcedCoolingOverview" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateSsysWorkOrder">
       <http:operation location="/CreateSsysWorkOrder" />
       <wsdl:input>
@@ -673,6 +743,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSsysBafZoneDefinitions">
       <http:operation location="/GetSsysBafZoneDefinitions" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSsysForcedCoolingOverview">
+      <http:operation location="/GetSsysForcedCoolingOverview" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
