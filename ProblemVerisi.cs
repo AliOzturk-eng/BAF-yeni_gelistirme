@@ -18,7 +18,7 @@ namespace Tavlama
 		public List<Sogutmacan> SogutmacanListesi { get; set; }
 		public List<Kaidebobin> KaideBobinListesi { get; set; }
 		public List<SSYSEquipment> SSYSEquipmentList { get; set; }
-
+		public List<SSYSBobin> SSYSBobinList { get; set; }
 		public List<IsemriL> list { get; set; }
 		public List<IsemriL> YukleListHNX { get; set; }
 		public List<IsemriL> YukleListH2 { get; set; }
@@ -247,7 +247,15 @@ namespace Tavlama
 			OOtahmini_proses_bitim = DTtahmini_proses_bitim;
 			DataTable CS = new DataTable(); 
 			CS = objService.GetSsysForcedCoolingOverview().Tables[0];
-
+			SSYSBobinList = new List<SSYSBobin>();
+			foreach (DataRow dr in BobinBatchList.Rows)
+			{
+				SSYSBobin eq = new SSYSBobin();
+				eq.BobinNo = dr["BobinNo"].ToString;
+				eq.X = Convert.ToDouble(dr["X"].ToString());
+				eq.Y = Convert.ToDouble(dr["Y"].ToString());
+				SSYSBobinList.Add(eq);
+			}
 			SSYSEquipmentList = new List<SSYSEquipment>();
 			foreach (DataRow dr in DTEquipList.Rows)
 			{
@@ -1319,7 +1327,7 @@ namespace Tavlama
 							isemriYukleHNX.AtmosphereTuru = "HNX";
 							isemriYukleHNX.AtacmanTipi = "Bobin Aparati";
 							isemriYukleHNX.Issuresi = 4.0;
-							isemriYukleHNX.Konum1Kaide = "RCM Transpalan";
+							isemriYukleHNX.Konum1Kaide = "RCM Transpalan";//kb.A510_B
 							isemriYukleHNX.Konum1Kolon = "4";
 							isemriYukleHNX.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
 							isemriYukleHNX.Konum2Kolon = YukleEsleme.Kolonno + "";
