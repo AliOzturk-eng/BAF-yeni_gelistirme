@@ -30,10 +30,16 @@ namespace Tavlama
 		public String UniqueID;
 		public DateTime Zaman;
 		public double IntZaman;
+		public double EkipmanX;
+		public double EkipmanY;
 		public string Konum1Kolon;
 		public string Konum1Kaide;
+		public double AlHatX;
+		public double AlHatY;
 		public string Konum2Kolon;
 		public string Konum2Kaide;
+		public double BirakHatX;
+		public double BirakHatY;
 		public string AtacmanTipi;
 		public double Issuresi;
 		public string AtmosphereTuru;

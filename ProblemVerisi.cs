@@ -18,7 +18,7 @@ namespace Tavlama
 		public List<Sogutmacan> SogutmacanListesi { get; set; }
 		public List<Kaidebobin> KaideBobinListesi { get; set; }
 		public List<SSYSEquipment> SSYSEquipmentList { get; set; }
-		public List<SSYSBobin> SSYSBobinList { get; set; }
+		//public List<SSYSBobin> SSYSBobinList { get; set; }
 		public List<IsemriL> list { get; set; }
 		public List<IsemriL> YukleListHNX { get; set; }
 		public List<IsemriL> YukleListH2 { get; set; }
@@ -247,15 +247,30 @@ namespace Tavlama
 			OOtahmini_proses_bitim = DTtahmini_proses_bitim;
 			DataTable CS = new DataTable(); 
 			CS = objService.GetSsysForcedCoolingOverview().Tables[0];
-			SSYSBobinList = new List<SSYSBobin>();
+			List<SSYSBobin> SSYSBobinList = new List<SSYSBobin>();
 			foreach (DataRow dr in BobinBatchList.Rows)
 			{
 				SSYSBobin eq = new SSYSBobin();
-				eq.BobinNo = dr["BobinNo"].ToString;
+				eq.BobinNo = dr["BobinNo"].ToString();
 				eq.X = Convert.ToDouble(dr["X"].ToString());
 				eq.Y = Convert.ToDouble(dr["Y"].ToString());
 				SSYSBobinList.Add(eq);
 			}
+			List<CebriSog> CebriSListe = new List<CebriSog>();
+			foreach (DataRow dr in CS.Rows)
+			{
+				CebriSog ceb = new CebriSog();
+				ceb.AlanKodu = dr["AlanKodu"].ToString();
+				ceb.AlanTanimi = dr["AlanTanimi"].ToString();
+				ceb.X1 = Convert.ToInt32(dr["X1"].ToString());
+				ceb.Y1 = Convert.ToInt32(dr["Y1"].ToString());
+				ceb.X2 = Convert.ToInt32(dr["X2"].ToString());
+				ceb.Y2 = Convert.ToInt32(dr["Y2"].ToString());
+				ceb.HatKodu = dr["HatKodu"].ToString();
+				ceb.BobinSayisi = Convert.ToInt32(dr["BobinSayisi"].ToString());
+				CebriSListe.Add(ceb);
+			}
+
 			SSYSEquipmentList = new List<SSYSEquipment>();
 			foreach (DataRow dr in DTEquipList.Rows)
 			{
@@ -500,12 +515,7 @@ namespace Tavlama
 
 						isemriSC.Zaman = IsBas;
 
-						var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
-
-						isemriSC.Konum1Kaide = ProTurn.BaseNumber.ToString();
-						isemriSC.Konum2Kaide = ProTurn.BaseNumber.ToString();
-						isemriSC.Konum1Kolon = koloneslesme.Kolonno + "";
-						isemriSC.Konum2Kolon = koloneslesme.Kolonno + "";
+						
 
 						if (ProTurn.BaseNumber <= 34)
 						{
@@ -521,7 +531,13 @@ namespace Tavlama
 							isemriSC.Issuresi = 2.5;
 							//süretaşimaBOS = Convert.ToDouble(SureTable.Rows[8]["Süre"]);
 						}
-						isemriSC.Yapilacakis = ProTurn.PlugNumber + "nolu Sogutma Canını çıkart" ;
+							var koloneslesme = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == ProTurn.BaseNumber);
+
+							isemriSC.Konum1Kaide = ProTurn.BaseNumber.ToString();
+							isemriSC.Konum2Kaide = ProTurn.BaseNumber.ToString();
+							isemriSC.Konum1Kolon = koloneslesme.Kolonno + "";
+							isemriSC.Konum2Kolon = koloneslesme.Kolonno + "";
+							isemriSC.Yapilacakis = ProTurn.PlugNumber + "nolu Sogutma Canını çıkart" ;
 						isemriSC.isTipi = WorkType.scan_cikart;
 						isemriSC.isDetayi = WorkTypeDetail.kaide_bosalt;
 						isemriSC.equipmentNumber = ProTurn.PlugNumber.ToString();
@@ -621,6 +637,7 @@ namespace Tavlama
 				        double zamfarkBOS = Convert.ToDouble(ZamanFarkBOS.TotalMinutes);
 						zamfarkBOS = Math.Round((isemriGO.IntZaman + isemriGO.Issuresi), 1);
 				        zamfarkBOS = Math.Round((isemriSC.IntZaman + isemriSC.Issuresi), 1);
+						List<CebriSog> UygunCS = CebriSListe.Where(o => o.BobinSayisi == 0).ToList();
 						for (int j = 0; j < bobinsayisi.DefaultView.Count; j++)
 						{
 							IsemriL isemriBOS = new IsemriL();
@@ -634,7 +651,7 @@ namespace Tavlama
 							isemriBOS.Konum1Kolon = koloneslesme.Kolonno + "";
 							isemriBOS.Zaman = IsBas;
 							isemriBOS.Konum2Kolon = "22";
-							isemriBOS.Konum2Kaide = "C.S.";
+							isemriBOS.Konum2Kaide = UygunCS[0].AlanKodu;
 								//IsemriNewRowBEM["Konum2 -Kolon"] = "22 Cebir Soğutma";
 								//IsemriNewRowBEM["Konum2 -Kaide"] = "22 Cebir Soğutma";
 							if (Hazir(IsBas))
@@ -674,6 +691,7 @@ namespace Tavlama
 							//	
 
 						}
+						CebriSListe.RemoveAt(0);
 						islem_sirasiBOS = islem_sirasiBOS + 1;
 						islem_sirasiSOG = islem_sirasiSOG + 1;
 
@@ -1199,7 +1217,7 @@ namespace Tavlama
 								isemriFirinH2Faz2.IntZaman = zamfark;
 						}
 
-
+								
 							isemriFirinH2Faz2.Zaman = IsBas;
 							isemriFirinH2Faz2.Konum1Kaide = UygunFurH2Faz2[MinRow].BaseNumber.ToString();
 						var koloneslesmeFurH2 = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2Faz2[MinRow].BaseNumber);

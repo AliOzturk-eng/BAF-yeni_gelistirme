@@ -95,7 +95,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CebriSog.cs" />
     <Compile Include="JsonRead.cs" />
+    <Compile Include="SSYSBobin.cs" />
     <Compile Include="SSYSEquipment.cs" />
     <Compile Include="VincNumarasi.cs" />
     <Compile Include="Yapilacak.cs" />
