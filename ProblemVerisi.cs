@@ -469,6 +469,7 @@ namespace Tavlama
 			//List<Sogutmacan> UygunSOCAH2 = GetUygunSoCa("H2");
 			List<Sogutmacan> UygunSOCAHNX = GetUygunSoCa(isFull, "HNX");
 			List<Sogutmacan> UygunSOCAH2 = GetUygunSoCa(isFull, "H2");
+			List<CebriSog> UygunCS = CebriSListe.Where(o => o.BobinSayisi == 0).ToList();
 			for (int i = 0; i < IS_TAHMIN; i++)
 			{
 				IsemriL isemri = new IsemriL();
@@ -494,7 +495,8 @@ namespace Tavlama
 					bobinsayisi.DefaultView.RowFilter = $"ProgramNumber  = '{BobinNO}'";
 					List<Kaidebobin> BobinTas = KaideBobinListesi.Where(o => o.ProgramNumber == ProTurn.BaseNumber).ToList();
 					Console.WriteLine(bobinsayisi.Rows[5]["BatchNumber"].ToString());
-					if (bobinsayisi.DefaultView.Count > 0)
+					
+						if (bobinsayisi.DefaultView.Count > 0)
 					{
 						IsemriL isemriSC = new IsemriL();
 						isemriSC.Konum1Kaide = ProTurn.BaseNumber.ToString();
@@ -637,7 +639,7 @@ namespace Tavlama
 				        double zamfarkBOS = Convert.ToDouble(ZamanFarkBOS.TotalMinutes);
 						zamfarkBOS = Math.Round((isemriGO.IntZaman + isemriGO.Issuresi), 1);
 				        zamfarkBOS = Math.Round((isemriSC.IntZaman + isemriSC.Issuresi), 1);
-						List<CebriSog> UygunCS = CebriSListe.Where(o => o.BobinSayisi == 0).ToList();
+					//	List<CebriSog> UygunCS = CebriSListe.Where(o => o.BobinSayisi == 0).ToList();
 						for (int j = 0; j < bobinsayisi.DefaultView.Count; j++)
 						{
 							IsemriL isemriBOS = new IsemriL();
@@ -651,7 +653,7 @@ namespace Tavlama
 							isemriBOS.Konum1Kolon = koloneslesme.Kolonno + "";
 							isemriBOS.Zaman = IsBas;
 							isemriBOS.Konum2Kolon = "22";
-							isemriBOS.Konum2Kaide = UygunCS[0].AlanKodu;
+							if (UygunCS.Count > 0) { isemriBOS.Konum2Kaide = UygunCS[0].AlanKodu; }
 								//IsemriNewRowBEM["Konum2 -Kolon"] = "22 Cebir Soğutma";
 								//IsemriNewRowBEM["Konum2 -Kaide"] = "22 Cebir Soğutma";
 							if (Hazir(IsBas))
@@ -691,7 +693,7 @@ namespace Tavlama
 							//	
 
 						}
-						CebriSListe.RemoveAt(0);
+						
 						islem_sirasiBOS = islem_sirasiBOS + 1;
 						islem_sirasiSOG = islem_sirasiSOG + 1;
 
@@ -699,6 +701,8 @@ namespace Tavlama
 
 					}
 				}
+					if (UygunCS.Count > 0) { UygunCS.RemoveAt(0); }
+					
 				}
 				else if (ProTurn.State == 1 || ProTurn.State == 2 || ProTurn.State == 3 || ProTurn.State == 4 || ProTurn.State == 5 || ProTurn.State == 6 || ProTurn.State == 7 || ProTurn.State == 8 || ProTurn.State == 9 || ProTurn.State == 10 || ProTurn.State == 20 || ProTurn.State == 200)
 				{
@@ -1345,7 +1349,7 @@ namespace Tavlama
 							isemriYukleHNX.AtmosphereTuru = "HNX";
 							isemriYukleHNX.AtacmanTipi = "Bobin Aparati";
 							isemriYukleHNX.Issuresi = 4.0;
-							isemriYukleHNX.Konum1Kaide = "RCM Transpalan";//kb.A510_B
+							isemriYukleHNX.Konum1Kaide = "BAF_RCM_TRN";//kb.A510_B
 							isemriYukleHNX.Konum1Kolon = "4";
 							isemriYukleHNX.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
 							isemriYukleHNX.Konum2Kolon = YukleEsleme.Kolonno + "";
@@ -1500,7 +1504,7 @@ namespace Tavlama
 							isemriYukleHNX.AtmosphereTuru = "HNX";
 							isemriYukleHNX.AtacmanTipi = "Bobin Aparati";
 							isemriYukleHNX.Issuresi = 4.0;
-							isemriYukleHNX.Konum1Kaide = "ECL Transpalan";
+							isemriYukleHNX.Konum1Kaide = "BAF_ECL_TRN";
 							isemriYukleHNX.Konum1Kolon = "16";
 							isemriYukleHNX.Konum2Kaide = Convert.ToString(hnxUygun[MinRow].No);
 							isemriYukleHNX.Konum2Kolon = YukleEsleme.Kolonno + "";
@@ -1647,7 +1651,7 @@ namespace Tavlama
 							isemriYukleH2.AtmosphereTuru = "H2";
 							isemriYukleH2.AtacmanTipi = "Bobin Aparati";
 							isemriYukleH2.Issuresi = 4.0;
-							isemriYukleH2.Konum1Kaide = "RCM Transpalan";
+							isemriYukleH2.Konum1Kaide = "BAF_RCM_TRN";
 							isemriYukleH2.Konum1Kolon = "4";
 							isemriYukleH2.Konum2Kaide = Convert.ToString(h2Uygun[MinRow].No);
 							isemriYukleH2.Konum2Kolon = YukleEsleme.Kolonno + "";
@@ -1790,7 +1794,7 @@ namespace Tavlama
 							isemriYukleH2.AtmosphereTuru = "H2";
 							isemriYukleH2.AtacmanTipi = "Bobin Aparati";
 							isemriYukleH2.Issuresi = 4.0;
-							isemriYukleH2.Konum1Kaide = "ECL Transpalan";
+							isemriYukleH2.Konum1Kaide = "BAF_ECL_TRN";
 							isemriYukleH2.Konum1Kolon = "16";
 							isemriYukleH2.Konum2Kaide = Convert.ToString(h2Uygun[MinRow].No);
 							isemriYukleH2.Konum2Kolon = YukleEsleme.Kolonno + "";
