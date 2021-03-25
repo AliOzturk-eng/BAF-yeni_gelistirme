@@ -486,7 +486,7 @@ namespace Tavlama
 				
 
 				DateTime IsBas = Convert.ToDateTime(ProTurn.ProcessEnd);
-				if (ProTurn.State == 202 || ProTurn.State == 250) //
+				if (ProTurn.State == 250) //
 				{
 					if (ProTurn.PlugNumber != 0) { 
 					bobinsayisi = DTkaidebobin;
@@ -496,7 +496,7 @@ namespace Tavlama
 					List<Kaidebobin> BobinTas = KaideBobinListesi.Where(o => o.ProgramNumber == ProTurn.BaseNumber).ToList();
 					Console.WriteLine(bobinsayisi.Rows[5]["BatchNumber"].ToString());
 					
-						if (bobinsayisi.DefaultView.Count > 0)
+					if (bobinsayisi.DefaultView.Count > 0)
 					{
 						IsemriL isemriSC = new IsemriL();
 						isemriSC.Konum1Kaide = ProTurn.BaseNumber.ToString();
@@ -508,7 +508,7 @@ namespace Tavlama
 						{
 							isemriSC.IntZaman = 0;
 						}
-						else
+					else
 						{
 							double zamfark = Convert.ToDouble(ZamanFark.TotalMinutes);
 							isemriSC.IntZaman = Math.Round(zamfark, 1);
@@ -704,7 +704,7 @@ namespace Tavlama
 					if (UygunCS.Count > 0) { UygunCS.RemoveAt(0); }
 					
 				}
-				else if (ProTurn.State == 1 || ProTurn.State == 2 || ProTurn.State == 3 || ProTurn.State == 4 || ProTurn.State == 5 || ProTurn.State == 6 || ProTurn.State == 7 || ProTurn.State == 8 || ProTurn.State == 9 || ProTurn.State == 10 || ProTurn.State == 20 || ProTurn.State == 200)
+				else if (ProTurn.State == 200)
 				{
 
 				//	List<Kaide> UygunKaideATMHNX = GetUygunKaideler("HNX");
@@ -907,7 +907,7 @@ namespace Tavlama
 
 
 				}
-                else if (ProTurn.State == 30) 
+                else if (ProTurn.State == 20 || ProTurn.State == 30) 
 				{
 					double Finalfark = 10000;
 					int MinRow = 0;
@@ -1185,7 +1185,7 @@ namespace Tavlama
 						   islem_sirasiTAV = islem_sirasiTAV + 1;
 					    }
 				    	else 
-					{
+				    	{
 						if (UygunFurH2Faz2.Count != 0) 
 						{ 
 						double Finalfark = 10000;
@@ -1311,6 +1311,8 @@ namespace Tavlama
 			var HNXGroupsECL = HnxResultECL.GroupBy(h => h.ProgramNumber).Select(s => new { ProgramNumber = s.Key, List = s.ToList() });
 			int AAA = HNXGroupsRCM.Count();
 			int islem_sirasiLOAD = 1;
+			
+			
 			if (hnxUygun.Count > 0)
 			{
 				
