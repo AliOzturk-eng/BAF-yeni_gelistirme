@@ -192,7 +192,7 @@ namespace Tavlama
         private double IsEmriOncelik(string uniqueID)
         {
 			int[] onemSirasi = { 3, 2, 1, 6, 5, 4, 8, 7 };
-			int[] puan = { 1, 2, 3, 25, 26, 27, 37, 40 };
+			int[] puan = { 50, 50, 50, 25, 50, 50, 10, 25 };
 
 			int sonuc =0;
 			int ilkDigit = (int) Double.Parse(uniqueID.Substring(0, 1));
