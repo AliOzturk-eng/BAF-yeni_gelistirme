@@ -46,6 +46,8 @@ namespace Tavlama.BAF_WebService {
         
         private System.Threading.SendOrPostCallback GetSsysForcedCoolingOverviewOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetSsysCraneLocationsOperationCompleted;
+        
         private System.Threading.SendOrPostCallback CreateSsysWorkOrderOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
@@ -109,6 +111,9 @@ namespace Tavlama.BAF_WebService {
         
         /// <remarks/>
         public event GetSsysForcedCoolingOverviewCompletedEventHandler GetSsysForcedCoolingOverviewCompleted;
+        
+        /// <remarks/>
+        public event GetSsysCraneLocationsCompletedEventHandler GetSsysCraneLocationsCompleted;
         
         /// <remarks/>
         public event CreateSsysWorkOrderCompletedEventHandler CreateSsysWorkOrderCompleted;
@@ -330,6 +335,33 @@ namespace Tavlama.BAF_WebService {
             if ((this.GetSsysForcedCoolingOverviewCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetSsysForcedCoolingOverviewCompleted(this, new GetSsysForcedCoolingOverviewCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSsysCraneLocations", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetSsysCraneLocations() {
+            object[] results = this.Invoke("GetSsysCraneLocations", new object[0]);
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetSsysCraneLocationsAsync() {
+            this.GetSsysCraneLocationsAsync(null);
+        }
+        
+        /// <remarks/>
+        public void GetSsysCraneLocationsAsync(object userState) {
+            if ((this.GetSsysCraneLocationsOperationCompleted == null)) {
+                this.GetSsysCraneLocationsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSsysCraneLocationsOperationCompleted);
+            }
+            this.InvokeAsync("GetSsysCraneLocations", new object[0], this.GetSsysCraneLocationsOperationCompleted, userState);
+        }
+        
+        private void OnGetSsysCraneLocationsOperationCompleted(object arg) {
+            if ((this.GetSsysCraneLocationsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetSsysCraneLocationsCompleted(this, new GetSsysCraneLocationsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -589,6 +621,32 @@ namespace Tavlama.BAF_WebService {
         private object[] results;
         
         internal GetSsysForcedCoolingOverviewCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    public delegate void GetSsysCraneLocationsCompletedEventHandler(object sender, GetSsysCraneLocationsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetSsysCraneLocationsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetSsysCraneLocationsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

@@ -400,7 +400,7 @@ namespace Tavlama
 			//	OOtahmini_proses_bitim.DefaultView.RowFilter = "State = '102'";
 			//	OOtahmini_proses_bitim = OOtahmini_proses_bitim.DefaultView.ToTable();
 			DateTime TimeNow = DateTime.Now;
-			DateTime UpTimeNow = TimeNow.AddMinutes(60);
+			DateTime UpTimeNow = TimeNow.AddMinutes(120);
 			if (isFull) { 
 				UpTimeNow = TimeNow.AddMinutes(720);
 				}
@@ -486,7 +486,7 @@ namespace Tavlama
 				
 
 				DateTime IsBas = Convert.ToDateTime(ProTurn.ProcessEnd);
-				if (ProTurn.State == 250) //
+				if (ProTurn.State == 202||ProTurn.State == 250) //
 				{
 					if (ProTurn.PlugNumber != 0) { 
 					bobinsayisi = DTkaidebobin;
@@ -704,7 +704,7 @@ namespace Tavlama
 					if (UygunCS.Count > 0) { UygunCS.RemoveAt(0); }
 					
 				}
-				else if (ProTurn.State == 200)
+				else if (ProTurn.State == 1|| ProTurn.State == 2 || ProTurn.State == 3 || ProTurn.State == 4 || ProTurn.State == 5 || ProTurn.State == 6 || ProTurn.State == 7 || ProTurn.State == 8 || ProTurn.State == 9 || ProTurn.State == 10 || ProTurn.State == 20 || ProTurn.State == 200)
 				{
 
 				//	List<Kaide> UygunKaideATMHNX = GetUygunKaideler("HNX");
@@ -907,7 +907,7 @@ namespace Tavlama
 
 
 				}
-                else if (ProTurn.State == 20 || ProTurn.State == 30) 
+                else if (ProTurn.State == 30) 
 				{
 					double Finalfark = 10000;
 					int MinRow = 0;

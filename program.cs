@@ -92,12 +92,12 @@ namespace Tavlama
 				IsemriTableTZ = IsemriTable.Where(o => o.Zaman.Year < 2000).ToList();
 				IsemriTableTZ = IsemriTableTZ.OrderByDescending(o => o.skor).ToList();
 				IsemriTableTN = IsemriTable.Where(o => o.Zaman.Year >= 2000).ToList();
-				IsemriTableTN = IsemriTableTN.OrderByDescending(o => o.skor).ToList();
 				IsemriTableTZ.AddRange(IsemriTableTN);
+				IsemriTableTN = IsemriTableTN.OrderByDescending(o => o.Zaman).ToList();
 				//	IsemriTableTZ = IsemriTable.Where(o => o.Zaman.ToString("dd.MM.yyyy HH:mm:ss") == "01.01.1900 00:00:00").ToList();
 				// ses deneme bir ki
-			//	isemrilistesi.AddRange(IsemriTableTZ);
-			//	IsemriTableTZ = isemrilistesi;
+				//	isemrilistesi.AddRange(IsemriTableTZ);
+				//	IsemriTableTZ = isemrilistesi;
 				for (int i = 0; i < problem.ProcessBitimNumber; i++)
 				{
 					IsemriL IsemriO = new IsemriL();
