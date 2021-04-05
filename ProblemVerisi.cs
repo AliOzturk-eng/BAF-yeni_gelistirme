@@ -177,7 +177,7 @@ namespace Tavlama
 		{
 			double oncelik = 0;
 			oncelik += IsEmriOncelik(uniqueID) * this.parameterOncelik;
-			//oncelik += Double.Parse(uniqueID.Substring(8, 3)) / 10 * this.parameterSure;
+			oncelik += Double.Parse(uniqueID.Substring(8, 3)) / 10 * this.parameterSure;
 			if(uniqueID.Substring(11, 2)=="H2")
             {
 				oncelik = 3 * oncelik;
