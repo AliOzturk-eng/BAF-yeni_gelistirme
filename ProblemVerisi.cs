@@ -177,7 +177,7 @@ namespace Tavlama
 		{
 			double oncelik = 0;
 			oncelik += IsEmriOncelik(uniqueID) * this.parameterOncelik;
-		//	oncelik += Double.Parse(uniqueID.Substring(8, 3)) / 10 * this.parameterSure;
+			//oncelik += Double.Parse(uniqueID.Substring(8, 3)) / 10 * this.parameterSure;
 			if(uniqueID.Substring(11, 2)=="H2")
             {
 				oncelik = 3 * oncelik;
@@ -192,8 +192,8 @@ namespace Tavlama
         private double IsEmriOncelik(string uniqueID)
         {
 			int[] onemSirasi = { 3, 2, 1, 6, 5, 4, 8, 7 };
-			int[] puan = { 50, 50, 50, 25, 50, 50, 10, 25 };
-
+			//int[] puan = { 50, 50, 50, 25, 50, 50, 10, 25 };
+			int[] puan = { 1, 2, 3, 25, 26, 27, 60, 37 };
 			int sonuc =0;
 			int ilkDigit = (int) Double.Parse(uniqueID.Substring(0, 1));
 			for(int i=0;i<onemSirasi.Length;i++)
