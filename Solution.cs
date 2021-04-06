@@ -15,7 +15,7 @@ namespace Tavlama
         private bool vinc3_on=true;
         
         private double max = 9999;
-        private int timelimit = 20;
+        private int timelimit = 30;
         private int min_kolon = 1;
         private int max_kolon = 26;
         private int vinc2_ilkkonum;
