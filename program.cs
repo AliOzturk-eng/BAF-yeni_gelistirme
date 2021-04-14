@@ -43,7 +43,7 @@ namespace Tavlama
 			writeLog("Program Baþladý", "INF");
 			DateTime t = DateTime.Now;
 			bool readDB = true;
-			String fileaddress = "Tavlama_2021_02_01-13-33-49IsEmr_Log.json";
+			String fileaddress = "Tavlama_2021_04_07-09-28-42IsEmr_Log.json";
 			List<IsemriL> IsemriTableTZ = null;
 			List<IsemriL> IsemriTableTN = null;
 			List<IsemriL> WorkList = new List<IsemriL>();

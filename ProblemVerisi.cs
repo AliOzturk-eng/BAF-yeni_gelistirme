@@ -247,6 +247,8 @@ namespace Tavlama
 			OOtahmini_proses_bitim = DTtahmini_proses_bitim;
 			DataTable CS = new DataTable(); 
 			CS = objService.GetSsysForcedCoolingOverview().Tables[0];
+			DataTable SSYSCraneLOC = new DataTable();
+			SSYSCraneLOC = objService.GetSsysCraneLocations().Tables[0];
 			List<SSYSBobin> SSYSBobinList = new List<SSYSBobin>();
 			foreach (DataRow dr in BobinBatchList.Rows)
 			{
