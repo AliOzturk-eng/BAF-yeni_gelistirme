@@ -180,11 +180,11 @@ namespace Tavlama
 			oncelik += Double.Parse(uniqueID.Substring(8, 3)) / 10 * this.parameterSure;
 			if(uniqueID.Substring(11, 2)=="H2")
             {
-				oncelik = 3 * oncelik;
+				oncelik = 2 * oncelik;
             }
 			else
             {
-				oncelik = 2 * oncelik;
+				oncelik = 3 * oncelik;
             }
 			return oncelik;
 		}
@@ -306,6 +306,7 @@ namespace Tavlama
 				sogutmacani.BaseNumber = Convert.ToInt32(dr["BaseNumber"].ToString());
 				sogutmacani.StatusText = dr["StatusText"].ToString();
 				sogutmacani.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
+				/*
 				if (sogutmacani.IsIdled == 1)
 				{
 					int indexX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("SC" + sogutmacani.No));
@@ -315,6 +316,7 @@ namespace Tavlama
 					}
 				}
 				// yukardakileri direkt constructor içinde de yazabilirsin. Classta parametrelerle tanımlamıştık, yapmicam şimdi :D
+				*/
 				int indexSCX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("SC" + sogutmacani.No));
 				if (indexSCX >= 0)
 				{
@@ -334,12 +336,14 @@ namespace Tavlama
 				kaide.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
 
 				// Phoenixten gelen isIDle=true ise kontrol et
-				if (kaide.IsIdled==1) {
+				/*if (kaide.IsIdled==1) {
 					int index = SSYSEquipmentList.FindIndex(x => x.AlanKodu.Trim().Equals(kaide.AtmosphereType.Trim() +"_"+ kaide.No));
 					if (index >= 0)
 						kaide.IsIdled = 0;
 				}
+				*/
 				int indexX = SSYSEquipmentList.FindIndex(x => x.AlanKodu.Trim().Equals(kaide.AtmosphereType.Trim() + "_" + kaide.No));
+				
 				if(indexX >= 0) { 
 				   kaide.Xkor = SSYSEquipmentList[indexX].X;
 				   kaide.Ykor = SSYSEquipmentList[indexX].Y;
@@ -355,6 +359,7 @@ namespace Tavlama
 				gomlek.BaseNumber = Convert.ToInt32(dr["BaseNumber"].ToString());
 				gomlek.StatusText = dr["StatusText"].ToString();
 				gomlek.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
+				/*
 				if (gomlek.IsIdled == 1)
 				{
 					int indexX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("G" + gomlek.No));
@@ -363,6 +368,7 @@ namespace Tavlama
 						if (SSYSEquipmentList[indexX].AlanKodu != "00008_SA") { gomlek.IsIdled = 0; }
 					}
 				}
+				*/
 				int indexGX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("G" + gomlek.No));
 				if (indexGX >= 0)
 				{
@@ -381,6 +387,7 @@ namespace Tavlama
 				firinl.StatusText = dr["StatusText"].ToString();
 				firinl.IsIdled = Convert.ToInt32(dr["IsIdled"].ToString());
 				firinl.No = Convert.ToInt32(dr["No"].ToString());
+				/*
 				if (firinl.IsIdled == 1)
 				{
 					int indexX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("F" + firinl.No));
@@ -389,6 +396,7 @@ namespace Tavlama
 						if (SSYSEquipmentList[indexX].AlanKodu != "00008_SA") { firinl.IsIdled = 0; }
 					}
 				}
+				*/
 				int indexFX = SSYSEquipmentList.FindIndex(x => x.EkipmanNo.Trim().Equals("F" + firinl.No));
 				if (indexFX >= 0)
 				{
@@ -1284,9 +1292,8 @@ namespace Tavlama
 			List<Firin> UygunFurH2 = GetUygunFirin("H2");
 			List<Firin> UygunFurH2Faz1 = UygunFurH2.Where(o => o.Phase == 1).ToList();
 			List<Firin> UygunFurH2Faz2 = UygunFurH2.Where(o => o.Phase == 2).ToList();
-			
-			
 			List<Firin> UygunFurHNX = GetUygunFirin("HNX");
+			
 			string id_yukleHNX;
 			string id_yukleH2;
 			foreach (var itemkaide in h2Uygun)
@@ -1894,7 +1901,7 @@ namespace Tavlama
 							isemriYukleH2Firin.isTipi = WorkType.firin_tak;
 							isemriYukleH2Firin.isDetayi = WorkTypeDetail.kaide_yukle;
 							isemriYukleH2Firin.equipmentNumber = UygunFurH2[MinRowGomFur].No.ToString();
-							UygunFurHNX.RemoveAt(MinRowGomFur);
+							UygunFurH2.RemoveAt(MinRowGomFur);
 							isemriYukleH2Firin.Yapilacakisturu = "Fırın yukle";
 							id_yukleHNX = idStringHazirla(3, islem_sirasiLOAD, 1, emir_sirasiLOAD, isemriYukleH2Firin.Issuresi, isemriYukleH2Firin.AtmosphereTuru);
 							isemriYukleH2Firin.UniqueID = id_yukleHNX;
