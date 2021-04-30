@@ -90,10 +90,14 @@ namespace Tavlama
 
 				
 				IsemriTableTZ = IsemriTable.Where(o => o.Zaman.Year < 2000).ToList();
-				IsemriTableTZ = IsemriTableTZ.OrderByDescending(o => o.skor).ToList();
-				IsemriTableTN = IsemriTable.Where(o => o.Zaman.Year >= 2000).ToList();
+				IsemriTableTZ = IsemriTableTZ.OrderBy(o => o.skor).ToList();
+			//	IsemriTableTN = IsemriTable.Where(o => o.Zaman.Year >= 2000).ToList();
+				IsemriTableTN = IsemriTable.Where(o => o.Zaman < DateTime.Now.AddMinutes(30)).ToList();
+
 				IsemriTableTN = IsemriTableTN.OrderBy(o => o.Zaman).ToList();
+				IsemriTableTN = IsemriTableTN.OrderBy(o => o.skor).ToList();
 				IsemriTableTZ.AddRange(IsemriTableTN);
+				IsemriTableTN = IsemriTableTN.OrderBy(o => o.skor).ToList();
 				//	IsemriTableTZ = IsemriTable.Where(o => o.Zaman.ToString("dd.MM.yyyy HH:mm:ss") == "01.01.1900 00:00:00").ToList();
 				// ses deneme bir ki
 				//	isemrilistesi.AddRange(IsemriTableTZ);

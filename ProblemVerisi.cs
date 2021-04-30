@@ -193,7 +193,7 @@ namespace Tavlama
         {
 			int[] onemSirasi = { 3, 2, 1, 6, 5, 4, 8, 7 };
 			//int[] puan = { 50, 50, 50, 25, 50, 50, 10, 25 };
-			int[] puan = { 1, 2, 3, 25, 26, 27, 60, 37 };
+			int[] puan = { 1, 2, 3, 25, 16, 17, 60, 37 };
 			int sonuc =0;
 			int ilkDigit = (int) Double.Parse(uniqueID.Substring(0, 1));
 			for(int i=0;i<onemSirasi.Length;i++)
@@ -601,7 +601,7 @@ namespace Tavlama
 						//int zamfarkGO = Convert.ToInt32(ZamanFarkGO.TotalMinutes);
 				
 				
-						isemriGO.Zaman = IsBas;
+						isemriGO.Zaman = IsBas.AddMinutes(2.5);
 						isemriGO.Konum1Kaide = ProTurn.BaseNumber.ToString();
 						isemriGO.Konum2Kaide = ProTurn.BaseNumber.ToString();
 						isemriGO.Konum1Kolon = koloneslesme.Kolonno + "";
@@ -686,8 +686,8 @@ namespace Tavlama
 								zamfarkBOS = zamfarkBOS + 4;
 							}
 
-
-							isemriBOS.Yapilacakis = BobinTas[j].BatchNumber +  "--Nolu  Bobin taşı";// temp[0]["No"].ToString()  can numarasını yaz kaide numarasını yazdır
+						//		isemriBOS.Yapilacakis = BobinTas[j].BatchNumber + "--Nolu  Bobin taşı";// temp[0]["No"].ToString()  can numarasını yaz kaide numarasını yazdır
+								isemriBOS.Yapilacakis = BobinTas[bobinsayisi.DefaultView.Count-j-1].BatchNumber +  "--Nolu  Bobin taşı";// temp[0]["No"].ToString()  can numarasını yaz kaide numarasını yazdır
 							isemriBOS.isTipi = WorkType.bobin_tasima;
 							isemriBOS.isDetayi = WorkTypeDetail.kaide_bosalt;
 							isemriBOS.equipmentNumber = BobinTas[j].BatchNumber;
@@ -829,7 +829,7 @@ namespace Tavlama
 							
 
 
-							isemriSoCaHNX.Zaman = IsBas;
+							isemriSoCaHNX.Zaman = IsBas.AddMinutes(2.5);
 							isemriSoCaHNX.Konum1Kaide = UygunSOCAHNX[MinRow].BaseNumber.ToString();
 							var koloneslesmeSOCA = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunSOCAHNX[MinRow].BaseNumber);
 							isemriSoCaHNX.Konum1Kolon = koloneslesmeSOCA.Kolonno + "";
@@ -881,7 +881,7 @@ namespace Tavlama
 							//zamfark = Convert.ToInt32(ZamanFark.TotalMinutes);
 						if (Hazir(IsBas)) { isemriSoCaH2.IntZaman = 0; }
 						else { isemriSoCaH2.IntZaman = Math.Round((zamfark + isemriTAVBIT.Issuresi), 1); };
-						isemriSoCaH2.Zaman = IsBas;
+						isemriSoCaH2.Zaman = IsBas.AddMinutes(2.5);
 						isemriSoCaH2.Konum1Kaide = UygunSOCAH2[MinRow].BaseNumber.ToString();
 						var koloneslesmeSOCAH2 = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunSOCAH2[MinRow].BaseNumber);
 						isemriSoCaH2.Konum1Kolon = koloneslesmeSOCAH2.Kolonno + "";
@@ -1097,7 +1097,7 @@ namespace Tavlama
 					        
 					        	isemriFirinHNX.Yapilacakis = UygunFurHNX[MinRow].No+ " Fırın tak";// tempF[0]["No"].ToString() + temp[0]["No"].ToString()  can numarasını yaz kaide numarasını yazdır
 					        	isemriFirinHNX.isTipi = WorkType.firin_tak;
-					        			isemriFirinHNX.isDetayi = WorkTypeDetail.kaide_yukle;
+					        	isemriFirinHNX.isDetayi = WorkTypeDetail.kaide_yukle;
 					        	isemriFirinHNX.equipmentNumber = UygunFurHNX[MinRow].No.ToString();
 					        	UygunFurHNX.RemoveAt(MinRow);
 					        	isemriFirinHNX.Yapilacakisturu = "Tav baslama";
