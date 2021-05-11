@@ -43,7 +43,7 @@ namespace Tavlama
 			writeLog("Program Baþladý", "INF");
 			DateTime t = DateTime.Now;
 			bool readDB = true;
-			String fileaddress = "Tavlama_2021_04_27-16-08-32IsEmr_Log.json";
+			String fileaddress = "Tavlama_2021_05_07-15-11-04IsEmr_Log.json";
 			List<IsemriL> IsemriTableTZ = null;
 			List<IsemriL> IsemriTableTN = null;
 			List<IsemriL> WorkList = new List<IsemriL>();
@@ -90,18 +90,14 @@ namespace Tavlama
 
 				
 				IsemriTableTZ = IsemriTable.Where(o => o.Zaman.Year < 2000).ToList();
-				IsemriTableTZ = IsemriTableTZ.OrderBy(o => o.skor).ToList();
-			//	IsemriTableTN = IsemriTable.Where(o => o.Zaman.Year >= 2000).ToList();
-				IsemriTableTN = IsemriTable.Where(o => o.Zaman < DateTime.Now.AddMinutes(30)).ToList();
-
-				IsemriTableTN = IsemriTableTN.OrderBy(o => o.Zaman).ToList();
-				IsemriTableTN = IsemriTableTN.OrderBy(o => o.skor).ToList();
+				IsemriTableTZ = IsemriTableTZ.OrderByDescending(o => o.skor).ToList();
+				IsemriTableTN = IsemriTable.Where(o => o.Zaman.Year >= 2000).ToList();
+				IsemriTableTN = IsemriTableTN.OrderByDescending(o => o.skor).ToList();
 				IsemriTableTZ.AddRange(IsemriTableTN);
-				IsemriTableTN = IsemriTableTN.OrderBy(o => o.skor).ToList();
 				//	IsemriTableTZ = IsemriTable.Where(o => o.Zaman.ToString("dd.MM.yyyy HH:mm:ss") == "01.01.1900 00:00:00").ToList();
 				// ses deneme bir ki
-				//	isemrilistesi.AddRange(IsemriTableTZ);
-				//	IsemriTableTZ = isemrilistesi;
+			//	isemrilistesi.AddRange(IsemriTableTZ);
+			//	IsemriTableTZ = isemrilistesi;
 				for (int i = 0; i < problem.ProcessBitimNumber; i++)
 				{
 					IsemriL IsemriO = new IsemriL();
@@ -120,6 +116,12 @@ namespace Tavlama
 			{
 				JsonRead jr = new JsonRead();
 				IsemriTableTZ = jr.LoadJsonIsEmr(fileaddress);
+				ProblemVerisi p = new ProblemVerisi(); 
+				
+				foreach (var ie in IsemriTableTZ)
+                {
+					ie.skor = p.skorhesapla(ie.UniqueID);
+                }
 			}
 			
 			if (IsemriTableTZ.Count > 0)

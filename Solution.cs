@@ -9,27 +9,27 @@ namespace Tavlama
     {
         public List<IsemriL> IsemriTable { get; }
 
-        private int DurumCounter=0;
+        private int DurumCounter = 0;
 
-        private bool vinc2_on=true;
-        private bool vinc3_on=true;
+        private bool vinc2_on = true;
+        private bool vinc3_on = true;
 
-        
-        
-        private int timelimit = 16;
+
+
+        private int timelimit = 30;
         private int min_kolon = 1;
         private int max_kolon = 26;
         private int vinc2_ilkkonum;
         private int vinc3_ilkkonum;
-        private int [,] vinc_sinirlar = null;
+        private int[,] vinc_sinirlar = null;
         private double parameterCakisma = 1;
         private bool detayliyaz = false;
-        
+
         private int eniyi_kactane_bol = 4;
         private int bol_timelimit = 8;
 
         private int eniyi_kactane = 3;
-        private Dictionary<Durum,Yapilacak> cevap;
+        private Dictionary<Durum, Yapilacak> cevap;
         public Solution(List<IsemriL> isemriTable)
         {
 
@@ -43,16 +43,16 @@ namespace Tavlama
         public void SkorlariTersCevir()
         {
             double maxSkor = 0;
-            foreach(var i in this.IsemriTable)
+            foreach (var i in this.IsemriTable)
             {
-                if(i.skor>maxSkor)
+                if (i.skor > maxSkor)
                 {
                     maxSkor = i.skor;
                 }
             }
-            foreach(var i in this.IsemriTable)
+            foreach (var i in this.IsemriTable)
             {
-                i.skor = maxSkor - i.skor + 1;
+                i.skor = maxSkor - i.skor + 100;
             }
         }
 
@@ -86,38 +86,40 @@ namespace Tavlama
                 simdikidurum = new Durum(this.DurumCounter++, 0, yapilanisler, true, false, this.vinc2_ilkkonum, this.vinc3_ilkkonum, vinc2iptal, dummy);
 
             if (this.vinc2_on && this.vinc3_on)
-                totalcost= RecursiveFun(simdikidurum,null,null);
-            else if(this.vinc2_on)
+                totalcost = RecursiveFun(simdikidurum, null, null);
+            else if (this.vinc2_on)
                 totalcost = RecursiveFun(simdikidurum, null, null);
             else
                 totalcost = RecursiveFun(simdikidurum, null, null);
 
             //resolve the answer here
-            
-            while (simdikidurum.getZaman()<this.timelimit && this.cevap.Keys.Contains(simdikidurum))
+
+            while (simdikidurum.getZaman() < this.timelimit && this.cevap.Keys.Contains(simdikidurum))
             {
                 Yapilacak yap = this.cevap[simdikidurum];
                 int aksiyon = yap.aksiyontipi;
                 string yazilacak = yap.id;
-                
+
                 IsemriL data = IsemriTable.FirstOrDefault(o => o.UniqueID.Equals(yazilacak));
-                
+
                 string temp;
 
                 if (aksiyon == 2)
                 {
-                   temp= ($"t={simdikidurum.getZaman()}, {data.AtmosphereTuru},  vinc 2 ile {data.Konum1Kaide} nolu kaideden {data.Konum2Kaide} nolu kaideye {data.Yapilacakis} | {data.UniqueID}  |  Konum (kolon1) {data.Konum1Kolon}  Konum (kolon2) {data.Konum2Kolon} | {yap.skor}");
+                    temp = ($"t={simdikidurum.getZaman()}, {data.AtmosphereTuru},  vinc 2 ile {data.Konum1Kaide} nolu kaideden {data.Konum2Kaide} nolu kaideye {data.Yapilacakis} | {data.UniqueID}  |  Konum (kolon1) {data.Konum1Kolon}  Konum (kolon2) {data.Konum2Kolon} | {yap.skor}");
                     data.VincNo = 2;
+                    data.yapilacagi_dk = simdikidurum.getZaman();
                     Console.WriteLine(temp);
-                    Program.writeLog(temp,"ATAMA");
+                    Program.writeLog(temp, "ATAMA");
                 }
-                else if(aksiyon == 3)
+                else if (aksiyon == 3)
                 {
-                    
-                    temp= ($"t={simdikidurum.getZaman()}, {data.AtmosphereTuru},   vinc 3 ile {data.Konum1Kaide} nolu kaideden {data.Konum2Kaide} nolu kaideye {data.Yapilacakis} | {data.UniqueID} |  Konum (kolon1) {data.Konum1Kolon}  Konum (kolon2) {data.Konum2Kolon} | {yap.skor}");
+
+                    temp = ($"t={simdikidurum.getZaman()}, {data.AtmosphereTuru},   vinc 3 ile {data.Konum1Kaide} nolu kaideden {data.Konum2Kaide} nolu kaideye {data.Yapilacakis} | {data.UniqueID} |  Konum (kolon1) {data.Konum1Kolon}  Konum (kolon2) {data.Konum2Kolon} | {yap.skor}");
                     data.VincNo = 3;
+                    data.yapilacagi_dk = simdikidurum.getZaman();
                     Console.WriteLine(temp);
-                    Program.writeLog(temp, "ATAMA"); 
+                    Program.writeLog(temp, "ATAMA");
                 }
                 else
                 {
@@ -127,25 +129,24 @@ namespace Tavlama
                 WorkList.Add(data);
                 simdikidurum = yap.sonDurum;
             }
-
-           
         }
 
         private double RecursiveFun(Durum baslangicDurumu, string V2SonIs, string V3SonIs)
         {
             //asagidaki is emirlerini iceren her durum icin, sirada hangi islere bakacagini ve skorlarini raporlar
-            string[] incelenecekListe = { };// "60020101020H2", "60010101020HNX", "70020102020H2", "70020102020H2", "80010103040HNX", "80020103040H2", "80020104040H2" };
-            
-            if (baslangicDurumu.t >= this.timelimit) {
-                return 0; 
+            string[] incelenecekListe = { "30010101020H2" , "60020101020H2", "60010101020H2", "70020102020H2", "70010102020H2", "80020103040H2", "80010103040H2", "80020104040H2", "80010104040H2", "80020105040H2", "80010105040H2", "60030101020HNX", "70030102020HNX" };// "60020101020H2", "60010101020HNX", "70020102020H2", "70020102020H2", "80010103040HNX", "80020103040H2", "80020104040H2" };
+
+            if (baslangicDurumu.t >= this.timelimit)
+            {
+                return 0;
             }
 
             //eger iki vinc'te calisiyorsa en kucuklerinin bitim zamanina gidilebilir.
             if (baslangicDurumu.V2Durum && baslangicDurumu.V3Durum && baslangicDurumu.t < baslangicDurumu.V2Detay.bitimzamani && baslangicDurumu.t < baslangicDurumu.V3Detay.bitimzamani)
             {
                 Durum next = new Durum(this.DurumCounter++, Math.Min(baslangicDurumu.V2Detay.bitimzamani, baslangicDurumu.V3Detay.bitimzamani), baslangicDurumu.yapilan, baslangicDurumu.V2Durum, baslangicDurumu.V3Durum, baslangicDurumu.V2Konum, baslangicDurumu.V3Konum, baslangicDurumu.V2Detay, baslangicDurumu.V3Detay);
-                double sonuc=RecursiveFun(next, V2SonIs, V3SonIs);
-                Yapilacak yp = new Yapilacak(0, $"{Math.Min(baslangicDurumu.V2Detay.bitimzamani, baslangicDurumu.V3Detay.bitimzamani)-baslangicDurumu.t} dk bekle", sonuc, next);
+                double sonuc = RecursiveFun(next, V2SonIs, V3SonIs);
+                Yapilacak yp = new Yapilacak(0, $"{Math.Min(baslangicDurumu.V2Detay.bitimzamani, baslangicDurumu.V3Detay.bitimzamani) - baslangicDurumu.t} dk bekle", sonuc, next);
                 this.cevap.Add(baslangicDurumu, yp);
                 return sonuc;
             }
@@ -183,9 +184,9 @@ namespace Tavlama
             // KRITIK: cakisma vs olduysa ve biri digerini (aktif ya da degil) ittirdiyse burada sacmalamamasi icin konumu guncelliyorum
             // bu zaten issiz olan da olabilir, isi yeni biten de olabilir
 
-            if(!V2Guncel)
+            if (!V2Guncel)
             {
-                int v3nerede=0;
+                int v3nerede = 0;
                 if (V3Guncel)
                     v3nerede = V3Gdetay.bitimkonumu;
                 else
@@ -203,11 +204,15 @@ namespace Tavlama
             }
 
             //YAZDIRIP YAZDIRMAMA KARARI
-            bool yazdir = this.detayliyaz;
-            foreach (var b in incelenecekListe)
-                yazdir = yazdir && islistesi.Contains(b);
-            yazdir = yazdir && (islistesi.Length == incelenecekListe.Length);
-            
+
+            bool yazdir = false; 
+            if (this.detayliyaz)
+            {
+                yazdir = true;
+                foreach (var b in incelenecekListe)
+                    yazdir = yazdir && islistesi.Contains(b);
+                yazdir = yazdir && (islistesi.Length == incelenecekListe.Length);
+            }
             bool[] secki2 = new bool[IsemriTable.Count];
             bool[] secki3 = new bool[IsemriTable.Count];
             double[] skor2 = new double[IsemriTable.Count];
@@ -255,8 +260,8 @@ namespace Tavlama
             // bu durumdaki hepsinin kismi skorunu basti - simdi kacina bakacagina karar verip en iyi 2-4 tanesinden secki olusturacak
             if (!enAzBirIsUygun)
             {
-                Durum next = new Durum(this.DurumCounter++, tnow + 0.5 , baslangicDurumu.yapilan, baslangicDurumu.V2Durum, baslangicDurumu.V3Durum, baslangicDurumu.V2Konum, baslangicDurumu.V3Konum, baslangicDurumu.V2Detay, baslangicDurumu.V3Detay);
-                double sonuc=RecursiveFun(next, V2SonIs, V3SonIs);
+                Durum next = new Durum(this.DurumCounter++, tnow + 0.5, baslangicDurumu.yapilan, baslangicDurumu.V2Durum, baslangicDurumu.V3Durum, baslangicDurumu.V2Konum, baslangicDurumu.V3Konum, baslangicDurumu.V2Detay, baslangicDurumu.V3Detay);
+                double sonuc = RecursiveFun(next, V2SonIs, V3SonIs);
                 Yapilacak yp = new Yapilacak(0, $"{0.5} dk bekle", sonuc, next);
                 this.cevap.Add(baslangicDurumu, yp);
                 return sonuc;
@@ -285,23 +290,25 @@ namespace Tavlama
 
 
                 // yazdir = true;
-                if (yazdir) Console.Write("Yapilanlar @ " + tnow + " ");
+                if (yazdir)
+                {
+                    Console.Write("Yapilanlar @ " + tnow + " ");
+                }
                 if (yazdir)
                 {
                     foreach (var u in islistesi) Console.Write(u + " ");
-                    Console.Write("Bakilanlar: ");
+                    Console.Write("\n Bakilanlar (tekadimda): ");
                     for (int u = 0; u < IsemriTable.Count; u++)
                     {
                         if (secki2[u] || secki3[u])
                         {
                             Console.Write(IsemriTable[u].UniqueID + " ");
                             if (secki2[u])
-                                Console.Write(skor2[u] + " ");
+                                Console.Write("vinc2 "+skor2[u] + " ");
                             if (secki3[u])
-                                Console.Write(skor3[u] + " ");
+                                Console.Write("vinc3 " + skor3[u] + " ");
                         }
                     }
-                    Console.WriteLine();
                 }
                 string[] geciciisler = new string[islistesi.Length + 1];
 
@@ -348,6 +355,25 @@ namespace Tavlama
                             vinc3ileyaparsamSonDurum[i] = next;
                         }
                     }
+                }
+
+
+                if (yazdir)
+                {
+                    Console.Write("\n Bakilanlar (recursion): ");
+                    for (int u = 0; u < IsemriTable.Count; u++)
+                    {
+                        if (secki2[u] || secki3[u])
+                        {
+                            Console.Write(IsemriTable[u].UniqueID + " ");
+                            if (secki2[u])
+                                Console.Write("vinc2 " + vinc2ileyaparsam[u] + " ");
+                            if (secki3[u])
+                                Console.Write("vinc3 " + vinc3ileyaparsam[u] + " ");
+                        }
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine();
                 }
 
                 //Console.WriteLine();
@@ -424,12 +450,12 @@ namespace Tavlama
 
         private bool sinirlaricinde(int vincNo, IsemriL isemriL)
         {
-            int vincIndex = vincNo-2;            
+            int vincIndex = vincNo - 2;
             int lowerIndex = this.vinc_sinirlar[vincIndex, 0];
             int upperIndex = this.vinc_sinirlar[vincIndex, 1];
             int konum1 = Convert.ToInt32(isemriL.Konum1Kolon);
             int konum2 = Convert.ToInt32(isemriL.Konum2Kolon);
-            return konum1<=upperIndex && konum1>=lowerIndex && konum2<=upperIndex && konum2>=lowerIndex;
+            return konum1 <= upperIndex && konum1 >= lowerIndex && konum2 <= upperIndex && konum2 >= lowerIndex;
         }
 
         private double solda(IsemriL isemriL)
@@ -441,7 +467,7 @@ namespace Tavlama
 
         private double sagda(IsemriL isemriL)
         {
-            return - solda(isemriL);
+            return -solda(isemriL);
         }
 
         private bool zorundalikTara(string[] islistesi, bool[] secki, double[] skor, double[] digerVincskor, string sonis)
@@ -483,7 +509,7 @@ namespace Tavlama
                 if (ind != -1)
                     secki[ind] = true;
             }
-            
+
         }
 
         private string BirSonraAyniVincYapmakZorunda(string sonis)
@@ -505,18 +531,18 @@ namespace Tavlama
         }
         private string ilkAltiDigit(string v)
         {
-                return v.Substring(0, 6);
+            return v.Substring(0, 6);
         }
 
         private int ilkDigit(string v)
         {
-           return (int)Double.Parse(v.Substring(0, 1));
+            return (int)Double.Parse(v.Substring(0, 1));
         }
 
         private bool DoesNotInclude(string[] islistesi, string uniqueID)
         {
-            bool hasit=false;
-            foreach(String s in islistesi)
+            bool hasit = false;
+            foreach (String s in islistesi)
             {
                 if (s.Equals(uniqueID))
                 {
@@ -545,9 +571,9 @@ namespace Tavlama
                     string islemK = islemID(k);
                     int sirasiK = siraID(k);
                     string tipiK = tipID(k);
-                    
-                    if(islemK.Equals(islem) && tipiK.Equals(tipi) && sirasiK==sirasi-1)
-                    { 
+
+                    if (islemK.Equals(islem) && tipiK.Equals(tipi) && sirasiK == sirasi - 1)
+                    {
                         sonuc = true;
                         break;
                     }
@@ -574,11 +600,11 @@ namespace Tavlama
         private bool alternatifyapildi(String v, string[] islistesi) { return true; }
 
         double cakisma(VincNumarasi vincNo, int degerlendirilen_vincin_konumu, detay yapilacak_is_detaylari, Boolean diger_vinc_aktif_mi, int diger_vincin_konumu, detay diger_vinc_is_detaylari)
-        {   
-            double katsayi=10;
+        {
+            double katsayi = 10;
 
             // BOS VINC HAREKETLERINI DEGERLENDIRMIYORUZ - O YUZDEN GIRDIGIMIZDE YER DEGISTIRMIS GORUNEBILIRLER, BURADA ONA GORE DEGERLENDIRMEK ICIN:
-            if(vincNo== VincNumarasi.vinc2 && degerlendirilen_vincin_konumu>=diger_vincin_konumu)
+            if (vincNo == VincNumarasi.vinc2 && degerlendirilen_vincin_konumu >= diger_vincin_konumu)
             {
                 degerlendirilen_vincin_konumu = diger_vincin_konumu - 2;
             }
@@ -589,46 +615,46 @@ namespace Tavlama
             // ASLINDA ITTIRDIGIM YERDEN BASLATIYORUM ARTIK.
 
             // degerlendirilen vinc (konum, zaman): konum1, zaman1 -> konum2, zaman2
-            int konum1=degerlendirilen_vincin_konumu;
-            int konum2=yapilacak_is_detaylari.baslangickonumu;
+            int konum1 = degerlendirilen_vincin_konumu;
+            int konum2 = yapilacak_is_detaylari.baslangickonumu;
             int konum3 = yapilacak_is_detaylari.bitimkonumu;
-            double zaman1=yapilacak_is_detaylari.baslangiczamani;
+            double zaman1 = yapilacak_is_detaylari.baslangiczamani;
             double zaman2 = zaman1 + 0.5;
-            double zaman3=yapilacak_is_detaylari.bitimzamani;
+            double zaman3 = yapilacak_is_detaylari.bitimzamani;
             // diger vinc (konum, zaman): digerKonum1,digerZaman1 -> digerKonum2, digerZaman2
-            int digerKonum1=diger_vincin_konumu; // bu hic onemli degil aslinda
-            int digerKonum2,digerKonum3;
-            double digerZaman1,digerZaman2,digerZaman3;
+            int digerKonum1 = diger_vincin_konumu; // bu hic onemli degil aslinda
+            int digerKonum2, digerKonum3;
+            double digerZaman1, digerZaman2, digerZaman3;
 
-            if(diger_vinc_aktif_mi)
+            if (diger_vinc_aktif_mi)
             {
-                digerKonum2 = diger_vinc_is_detaylari.baslangickonumu; 
-                digerKonum3 =diger_vinc_is_detaylari.bitimkonumu;
-                digerZaman1 = diger_vinc_is_detaylari.baslangiczamani-0.5;
+                digerKonum2 = diger_vinc_is_detaylari.baslangickonumu;
+                digerKonum3 = diger_vinc_is_detaylari.bitimkonumu;
+                digerZaman1 = diger_vinc_is_detaylari.baslangiczamani - 0.5;
                 digerZaman2 = diger_vinc_is_detaylari.baslangiczamani;
-                digerZaman3=diger_vinc_is_detaylari.bitimzamani;
+                digerZaman3 = diger_vinc_is_detaylari.bitimzamani;
             }
             else
             {
-                digerKonum2=digerKonum1;
+                digerKonum2 = digerKonum1;
                 digerKonum3 = digerKonum1;
                 digerZaman1 = zaman1;
-                digerZaman2=zaman1+.5;
-                digerZaman3=zaman2+.5;
+                digerZaman2 = zaman1 + .5;
+                digerZaman3 = zaman2 + .5;
             }
-            return katsayi*cakismaZamanMesafe(vincNo,konum1,konum2,konum3,zaman1,zaman2,zaman3,digerKonum1,digerKonum2,digerKonum3,digerZaman1,digerZaman2,digerZaman3);
+            return katsayi * cakismaZamanMesafe(vincNo, konum1, konum2, konum3, zaman1, zaman2, zaman3, digerKonum1, digerKonum2, digerKonum3, digerZaman1, digerZaman2, digerZaman3);
         }
 
         private double cakismaZamanMesafe(VincNumarasi vincNo, int konum1, int konum2, int konum3, double zaman1, double zaman2, double zaman3, int digerKonum1, int digerKonum2, int digerKonum3, double digerZaman1, double digerZaman2, double digerZaman3)
         {
-            double mesafehareketederken=0; 
+            double mesafehareketederken = 0;
             double mesafeisyaparken = 0;
             double sureisyaparken = 0;
-            
-            if(digerZaman1>=zaman1-.05)// ayni anda hareket ediyorlarsa
+
+            if (digerZaman1 >= zaman1 - .05)// ayni anda hareket ediyorlarsa
             //double esit gelmez diye bu sekilde yaziyorum: istenen sart su (digerZaman1==zaman1) ama diger zaman daha buyuk olamaz zaten
             {
-                if((konum1<digerKonum1 && konum2<digerKonum2) || (konum1 > digerKonum1 && konum2 > digerKonum2)) // bu durumda cakismaz
+                if ((konum1 < digerKonum1 && konum2 < digerKonum2) || (konum1 > digerKonum1 && konum2 > digerKonum2)) // bu durumda cakismaz
                 {
                     mesafehareketederken = 0;
                 }
@@ -644,7 +670,7 @@ namespace Tavlama
 
             //konum1ie bakarak kım ne tarafta anlıyoruz
             //
-            if ((vincNo==VincNumarasi.vinc2 && konum2 < digerKonum2 && konum3 < digerKonum3) || (vincNo == VincNumarasi.vinc3 && konum2 > digerKonum2 && konum3 > digerKonum3)) // bu durumda cakismaz
+            if ((vincNo == VincNumarasi.vinc2 && konum2 < digerKonum2 && konum3 < digerKonum3) || (vincNo == VincNumarasi.vinc3 && konum2 > digerKonum2 && konum3 > digerKonum3)) // bu durumda cakismaz
             {
                 mesafeisyaparken = 0;
             }
@@ -655,7 +681,7 @@ namespace Tavlama
                 mesafeisyaparken = Math.Abs(konum3 - digerKonum3) + 2;
             }
 
-            return mesafehareketederken * 0.5 + mesafeisyaparken* sureisyaparken;
+            return mesafehareketederken * 0.5 + mesafeisyaparken * sureisyaparken;
         }
     }
 }

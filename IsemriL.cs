@@ -50,6 +50,7 @@ namespace Tavlama
 		public WorkType isTipi;
 		public WorkTypeDetail isDetayi;
 		public int VincNo;
+		public double yapilacagi_dk;
 		public IsemriL()
         {
 
