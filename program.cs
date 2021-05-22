@@ -43,7 +43,7 @@ namespace Tavlama
 			writeLog("Program Baþladý", "INF");
 			DateTime t = DateTime.Now;
 			bool readDB = true;
-			String fileaddress = "Tavlama_2021_05_07-15-11-04IsEmr_Log.json";
+			String fileaddress = "Tavlama_2021_05_21-15-38-21IsEmr_Log.json";
 			List<IsemriL> IsemriTableTZ = null;
 			List<IsemriL> IsemriTableTN = null;
 			List<IsemriL> WorkList = new List<IsemriL>();
@@ -80,7 +80,7 @@ namespace Tavlama
 				//   IsemriTable.AddRange(isemrilistesi);
 				if (isemrilistesi.Count > 0)
 				{
-					Solution recursionLOAD = new Solution(isemrilistesi);
+					Solution recursionLOAD = new Solution(isemrilistesi, 1, 26);
 					recursionLOAD.Solve(out WorkList);
 				}
 
@@ -126,7 +126,7 @@ namespace Tavlama
 			
 			if (IsemriTableTZ.Count > 0)
 			{
-				Solution recursion = new Solution(IsemriTableTZ);
+				Solution recursion = new Solution(IsemriTableTZ, 1, 26);
 				recursion.Solve(out WorkList);
 			}
 			Console.ReadLine();

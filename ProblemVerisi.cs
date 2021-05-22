@@ -18,7 +18,7 @@ namespace Tavlama
 		public List<Sogutmacan> SogutmacanListesi { get; set; }
 		public List<Kaidebobin> KaideBobinListesi { get; set; }
 		public List<SSYSEquipment> SSYSEquipmentList { get; set; }
-		//public List<SSYSBobin> SSYSBobinList { get; set; }
+		public List<SSYSBobin> SSYSBobinList { get; set; }
 		public List<IsemriL> list { get; set; }
 		public List<IsemriL> YukleListHNX { get; set; }
 		public List<IsemriL> YukleListH2 { get; set; }
@@ -251,15 +251,19 @@ namespace Tavlama
 			CS = objService.GetSsysForcedCoolingOverview().Tables[0];
 			DataTable SSYSCraneLOC = new DataTable();
 			SSYSCraneLOC = objService.GetSsysCraneLocations().Tables[0];
-			List<SSYSBobin> SSYSBobinList = new List<SSYSBobin>();
+			SSYSBobinList = new List<SSYSBobin>();
 			foreach (DataRow dr in BobinBatchList.Rows)
 			{
 				SSYSBobin eq = new SSYSBobin();
 				eq.BobinNo = dr["BobinNo"].ToString();
+				eq.AlanTanimi = dr["AlanTanimi"].ToString();
 				eq.X = Convert.ToDouble(dr["X"].ToString());
 				eq.Y = Convert.ToDouble(dr["Y"].ToString());
 				SSYSBobinList.Add(eq);
 			}
+			//SSYSBobin Deneq = new SSYSBobin();
+			//Deneq = SSYSBobinList.Find(o => o.BobinNo == "A155305");
+			
 			List<CebriSog> CebriSListe = new List<CebriSog>();
 			foreach (DataRow dr in CS.Rows)
 			{
@@ -695,7 +699,7 @@ namespace Tavlama
 								isemriBOS.Yapilacakis = BobinTas[bobinsayisi.DefaultView.Count - j - 1].BatchNumber + "--Nolu  Bobin taşı";// temp[0]["No"].ToString()  can numarasını yaz kaide numarasını yazdır
 								isemriBOS.isTipi = WorkType.bobin_tasima;
 								isemriBOS.isDetayi = WorkTypeDetail.kaide_bosalt;
-								isemriBOS.equipmentNumber = BobinTas[j].BatchNumber;
+								isemriBOS.equipmentNumber = BobinTas[bobinsayisi.DefaultView.Count - j - 1].BatchNumber;
 								isemriBOS.Yapilacakisturu = "Kaide boşalt";
 								id_strBOB = idStringHazirla(8, islem_sirasiBOS, 1, emir_sirasiSOG, isemriBOS.Issuresi, isemriBOS.AtmosphereTuru);
 								//islem_sirasiBOS = islem_sirasiBOS + 1;
@@ -906,7 +910,7 @@ namespace Tavlama
 							//	UygunSOCAH2.Add(UygunSOCAH2[MinRow]);
 							isemriSoCaH2.Yapilacakisturu = "TAV bitişi";
 							id_strTAV = idStringHazirla(5, islem_sirasiTAV, 1, emir_sirasiTAV, isemriSoCaH2.Issuresi, isemriSoCaH2.AtmosphereTuru);
-							//islem_sirasiTAV = islem_sirasiTAV + 1;
+							islem_sirasiTAV = islem_sirasiTAV + 1;
 							emir_sirasiTAV = emir_sirasiTAV + 1;
 							isemriSoCaH2.UniqueID = id_strTAV;
 							//isemriSoCaH2.skor = 3*skorhesapla(isemriSoCaH2.UniqueID);
@@ -1323,9 +1327,275 @@ namespace Tavlama
 			//	List<Kaidebobin> HnxResultECL = KaideBobinListesi.Where(o => o.ProgramNumber >= 120 && o.ProgramNumber <= 130 && o.A510_B == "ECL BOBIN DEVIRICI").ToList();
 			List<Kaidebobin> HNXAtanacak = KaideBobinListesi.Where(o => o.ProgramNumber <= 34 && o.Status == "0").ToList();
 			List<Kaidebobin> H2Atanacak = KaideBobinListesi.Where(o => o.ProgramNumber >= 61 && o.ProgramNumber < 100 && o.Status == "0").ToList();
+			
 			var HNXAtanacakBAF = HNXAtanacak.GroupBy(h => h.ProgramNumber).Select(s => new { ProgramNumber = s.Key, List = s.ToList() });
 			var H2AtanacakBAF = H2Atanacak.GroupBy(h => h.ProgramNumber).Select(s => new { ProgramNumber = s.Key, List = s.ToList() });
+			//string ATABOBIN = H2Atanacak[0].BatchNumber;
 
+			//string BobinBatch2 = "A154018" ;
+			//string CHECKBOBHNX2 = SSYSBobinList.Find(o => o.BobinNo == BobinBatch2).AlanTanimi;
+			
+
+
+			int BAFislem_sirasiLOADHNX = 1;
+			if (HNXAtanacak.Count > 0)
+			  foreach (var item in HNXAtanacakBAF) 
+				{
+					int BAFemir_sirasiLOAD = 1;
+					foreach (Kaidebobin kb in item.List)
+					{
+						//SSYSBobin CHECKBOBHNX = new SSYSBobin();
+						//string BobinBatch = kb.BatchNumber;
+						//string CHECKBOBHNX = SSYSBobinList.Find(o => o.BobinNo == BobinBatch ).AlanTanimi;
+						IsemriL BAFHNX = new IsemriL();
+						BAFHNX.Zaman = DateTime.Now;
+						BAFHNX.IntZaman = 0.0;
+						BAFHNX.AtmosphereTuru = "HNX";
+						BAFHNX.AtacmanTipi = "Bobin Aparati";
+						BAFHNX.Issuresi = 4.0;
+						BAFHNX.Konum1Kaide = kb.A510_B;
+						BAFHNX.Konum1Kolon = "4";
+						BAFHNX.Konum2Kaide = Convert.ToString( kb.ProgramNumber);
+						BAFHNX.Konum2Kolon = Convert.ToString(JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == kb.ProgramNumber).Kolonno);
+						BAFHNX.Yapilacakis = kb.BatchNumber + "-- No  Bobin Tasi";
+						BAFHNX.isTipi = WorkType.bobin_tasima;
+						BAFHNX.equipmentNumber = kb.BatchNumber;
+						BAFHNX.isDetayi = WorkTypeDetail.kaide_yukle;
+						BAFHNX.Yapilacakisturu = "Kaide yukle";
+						id_yukleHNX = idStringHazirla(1, BAFislem_sirasiLOADHNX, 1, BAFemir_sirasiLOAD, BAFHNX.Issuresi, BAFHNX.AtmosphereTuru);
+						BAFHNX.UniqueID = id_yukleHNX;
+						BAFHNX.skor = skorhesapla(BAFHNX.UniqueID);
+						//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+						YuklemeIsListe.Add(BAFHNX);
+						BAFemir_sirasiLOAD = BAFemir_sirasiLOAD + 1;
+
+					}
+					int ISATAHNX = Convert.ToInt32(JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == item.ProgramNumber).Kolonno);
+					
+					if (hnxUygunGom.Count > 0)
+					{
+						//IsemriL YuklehnxGom = new IsemriL();
+						//hnxUygunGom[t].BaseNumber;
+						//isemriYukleHNX e gömlek ekle
+						//YuklemeIsListe.Add(isemriYukleHNXGom);
+						IsemriL YukleHNXGom = new IsemriL();
+						int MinRowGom = 0;
+						double FinalFarkGom = 10000;
+
+						for (int t = 0; t < hnxUygunGom.Count; t++)
+						{
+							double FARKC = Math.Abs(ISATAHNX - hnxUygunGom[t].Xkor);
+							if (FARKC < FinalFarkGom)
+							{
+								FinalFarkGom = FARKC;
+								MinRowGom = t;
+
+							}
+						}
+
+						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == hnxUygunGom[MinRowGom].BaseNumber);
+						YukleHNXGom.Zaman = DateTime.Now;
+						YukleHNXGom.IntZaman = 0.0;
+						YukleHNXGom.AtmosphereTuru = "H2";
+						YukleHNXGom.AtacmanTipi = "Konvektor Aparatı";
+						YukleHNXGom.Issuresi = 2.5;
+						YukleHNXGom.Konum1Kaide = hnxUygunGom[MinRowGom].BaseNumber.ToString();
+						YukleHNXGom.Konum1Kolon = YukleGom.Kolonno + "";
+						YukleHNXGom.Konum2Kaide = Convert.ToString(item.ProgramNumber);
+						YukleHNXGom.Konum2Kolon = Convert.ToString(ISATAHNX);
+						YukleHNXGom.Yapilacakis = hnxUygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
+						YukleHNXGom.isTipi = WorkType.bobin_tasima;
+						YukleHNXGom.equipmentNumber = hnxUygunGom[MinRowGom].No.ToString();
+						YukleHNXGom.isDetayi = WorkTypeDetail.kaide_yukle;
+						YukleHNXGom.Yapilacakisturu = "Kaide yukle";
+						id_yukleH2 = idStringHazirla(1, BAFislem_sirasiLOADHNX, 1, BAFemir_sirasiLOAD, YukleHNXGom.Issuresi, YukleHNXGom.AtmosphereTuru);
+						YukleHNXGom.UniqueID = id_yukleH2;
+						YukleHNXGom.skor = skorhesapla(YukleHNXGom.UniqueID);
+						YuklemeIsListe.Add(YukleHNXGom);
+
+					}
+					IsemriL YukleHNXFirin = new IsemriL();
+					if (hnxUygunGom.Count > 0 && UygunFurHNX.Count > 0) 
+					{
+						
+							double FinalFarkFur = 10000;
+							int MinRowGomFur = 0;
+							for (int t = 0; t < UygunFurHNX.Count; t++)
+							{
+								double FARKC = Math.Abs(ISATAHNX - UygunFurHNX[t].Xkor);
+								if (FARKC < FinalFarkFur)
+								{
+									FinalFarkFur = FARKC;
+									MinRowGomFur = t;
+
+								}
+								//	var LoadHNXFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[t].BaseNumber);
+								//	int FarkG = Math.Abs(LoadHNXFur.Kolonno - YukleEsleme.Kolonno);
+								//	if (FarkG < FinalFarkFur)
+								//	{
+								//		FinalFarkFur = FarkG;
+								//		MinRowGomFur = t;
+								//	}
+							}
+							var YukleFurHNX = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[MinRowGomFur].BaseNumber);
+							YukleHNXFirin.Zaman = DateTime.Now;
+							YukleHNXFirin.IntZaman = 0.0;
+							YukleHNXFirin.AtmosphereTuru = "HNX";
+							YukleHNXFirin.AtacmanTipi = "Konvektor Aparatı";
+							YukleHNXFirin.Issuresi = 2.5;
+							YukleHNXFirin.Konum1Kaide = UygunFurHNX[MinRowGomFur].BaseNumber.ToString();
+							YukleHNXFirin.Konum1Kolon = YukleFurHNX.Kolonno + "";
+							YukleHNXFirin.Konum2Kaide = Convert.ToString(item.ProgramNumber);
+							YukleHNXFirin.Konum2Kolon = Convert.ToString(ISATAHNX); 
+							YukleHNXFirin.Yapilacakis = UygunFurHNX[MinRowGomFur].No + "-- Nolu  Firin Tak";
+							YukleHNXFirin.isTipi = WorkType.firin_tak;
+							YukleHNXFirin.isDetayi = WorkTypeDetail.kaide_yukle;
+							YukleHNXFirin.equipmentNumber = UygunFurHNX[MinRowGomFur].No.ToString();
+							UygunFurHNX.RemoveAt(MinRowGomFur);
+							YukleHNXFirin.Yapilacakisturu = "Fırın yukle";
+							id_yukleHNX = idStringHazirla(3, BAFislem_sirasiLOADHNX, 1, BAFemir_sirasiLOAD, YukleHNXFirin.Issuresi, YukleHNXFirin.AtmosphereTuru);
+							YukleHNXFirin.UniqueID = id_yukleHNX;
+							YukleHNXFirin.skor = skorhesapla(YukleHNXFirin.UniqueID);
+							//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+							YuklemeIsListe.Add(YukleHNXFirin);
+						}
+
+					
+				}
+			//SSYSBobinList.Find(o => o.BobinNo == kb.BatchNumber);
+
+			int BAFislem_sirasiLOADH2 = 1;
+			if (H2Atanacak.Count > 0)
+				foreach (var item in H2AtanacakBAF)
+				{
+					int BAFemir_sirasiLOAD = 1;
+					foreach (Kaidebobin kb in item.List)
+					{
+						//SSYSBobin CHECKBOBH2 = new SSYSBobin();
+						//string BobinBatch = kb.BatchNumber;
+						//string CHECKBOBH2 = SSYSBobinList.Find(o => o.BobinNo == BobinBatch).AlanTanimi;
+						IsemriL BAFH2 = new IsemriL();
+						BAFH2.Zaman = DateTime.Now;
+						BAFH2.IntZaman = 0.0;
+						BAFH2.AtmosphereTuru = "H2";
+						BAFH2.AtacmanTipi = "Bobin Aparati";
+						BAFH2.Issuresi = 4.0;
+						BAFH2.Konum1Kaide = kb.A510_B;
+						BAFH2.Konum1Kolon = "4";
+						BAFH2.Konum2Kaide = Convert.ToString(kb.ProgramNumber);
+						BAFH2.Konum2Kolon = Convert.ToString(JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == kb.ProgramNumber).Kolonno);
+						BAFH2.Yapilacakis = kb.BatchNumber + "-- No  Bobin Tasi";
+						BAFH2.isTipi = WorkType.bobin_tasima;
+						BAFH2.equipmentNumber = kb.BatchNumber;
+						BAFH2.isDetayi = WorkTypeDetail.kaide_yukle;
+						BAFH2.Yapilacakisturu = "Kaide yukle";
+						id_yukleHNX = idStringHazirla(1, BAFislem_sirasiLOADH2, 1, BAFemir_sirasiLOAD, BAFH2.Issuresi, BAFH2.AtmosphereTuru);
+						BAFH2.UniqueID = id_yukleHNX;
+						BAFH2.skor = skorhesapla(BAFH2.UniqueID);
+						//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+						YuklemeIsListe.Add(BAFH2);
+						BAFemir_sirasiLOAD = BAFemir_sirasiLOAD + 1;
+
+					}
+					int ISATAH2 = Convert.ToInt32(JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == item.ProgramNumber).Kolonno);
+					if (h2UygunGom.Count > 0)
+					{
+						IsemriL YukleH2Gom = new IsemriL();
+						//hnxUygunGom[t].BaseNumber;
+						//isemriYukleHNX e gömlek ekle
+						//YuklemeIsListe.Add(isemriYukleHNXGom);
+						int MinRowGom = 0;
+						double FinalFarkGom = 10000;
+
+						for (int t = 0; t < h2UygunGom.Count; t++)
+						{
+							double FARKC = Math.Abs(ISATAH2 - h2UygunGom[t].Xkor);
+							if (FARKC < FinalFarkGom)
+							{
+								FinalFarkGom = FARKC;
+								MinRowGom = t;
+
+							}
+						}
+
+						var YukleGom = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == h2UygunGom[MinRowGom].BaseNumber);
+						YukleH2Gom.Zaman = DateTime.Now;
+						YukleH2Gom.IntZaman = 0.0;
+						YukleH2Gom.AtmosphereTuru = "H2";
+						YukleH2Gom.AtacmanTipi = "Konvektor Aparatı";
+						YukleH2Gom.Issuresi = 2.5;
+						YukleH2Gom.Konum1Kaide = h2UygunGom[MinRowGom].BaseNumber.ToString();
+						YukleH2Gom.Konum1Kolon = YukleGom.Kolonno + "";
+						YukleH2Gom.Konum2Kaide = Convert.ToString(item.ProgramNumber);
+						YukleH2Gom.Konum2Kolon = Convert.ToString(ISATAH2);
+						YukleH2Gom.Yapilacakis = h2UygunGom[MinRowGom].No + "-- Nolu  Gomlek Tak";
+						YukleH2Gom.isTipi = WorkType.bobin_tasima;
+						YukleH2Gom.equipmentNumber = h2UygunGom[MinRowGom].No.ToString();
+						YukleH2Gom.isDetayi = WorkTypeDetail.kaide_yukle;
+						YukleH2Gom.Yapilacakisturu = "Kaide yukle";
+						id_yukleH2 = idStringHazirla(1, BAFislem_sirasiLOADH2, 1, BAFemir_sirasiLOAD, YukleH2Gom.Issuresi, YukleH2Gom.AtmosphereTuru);
+						YukleH2Gom.UniqueID = id_yukleH2;
+						YukleH2Gom.skor = skorhesapla(YukleH2Gom.UniqueID);
+						YuklemeIsListe.Add(YukleH2Gom);
+
+					}
+					IsemriL YukleH2Firin = new IsemriL();
+					if (61 <= Convert.ToInt32(item.ProgramNumber) && Convert.ToInt32(item.ProgramNumber) <= 76)
+					{
+						UygunFurH2 = UygunFurH2Faz1;
+					}
+					else if (Convert.ToInt32(item.ProgramNumber) > 76)
+					{
+						UygunFurH2 = UygunFurH2Faz2;
+					}
+
+					if (h2UygunGom.Count > 0 && UygunFurH2.Count > 0) 
+					{
+						double FinalFarkFur = 10000;
+						int MinRowGomFur = 0;
+						for (int t = 0; t < UygunFurH2.Count; t++)
+						{
+							double FARKC = Math.Abs(ISATAH2 - UygunFurH2[t].Xkor);
+							if (FARKC < FinalFarkFur)
+							{
+								FinalFarkFur = FARKC;
+								MinRowGomFur = t;
+
+							}
+							//	var LoadHNXFur = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurHNX[t].BaseNumber);
+							//	int FarkG = Math.Abs(LoadHNXFur.Kolonno - YukleEsleme.Kolonno);
+							//	if (FarkG < FinalFarkFur)
+							//	{
+							//		FinalFarkFur = FarkG;
+							//		MinRowGomFur = t;
+							//	}
+						}
+						var YukleFurH2 = JSONdosyalar.KaideKolonEslesmesi.Find(e => e.BaseNumber == UygunFurH2[MinRowGomFur].BaseNumber);
+						YukleH2Firin.Zaman = DateTime.Now;
+						YukleH2Firin.IntZaman = 0.0;
+						YukleH2Firin.AtmosphereTuru = "HNX";
+						YukleH2Firin.AtacmanTipi = "Konvektor Aparatı";
+						YukleH2Firin.Issuresi = 2.5;
+						YukleH2Firin.Konum1Kaide = UygunFurH2[MinRowGomFur].BaseNumber.ToString();
+						YukleH2Firin.Konum1Kolon = YukleFurH2.Kolonno + "";
+						YukleH2Firin.Konum2Kaide = Convert.ToString(item.ProgramNumber);
+						YukleH2Firin.Konum2Kolon = Convert.ToString(ISATAH2);
+						YukleH2Firin.Yapilacakis = UygunFurHNX[MinRowGomFur].No + "-- Nolu  Firin Tak";
+						YukleH2Firin.isTipi = WorkType.firin_tak;
+						YukleH2Firin.isDetayi = WorkTypeDetail.kaide_yukle;
+						YukleH2Firin.equipmentNumber = UygunFurH2[MinRowGomFur].No.ToString();
+						UygunFurH2.RemoveAt(MinRowGomFur);
+						YukleH2Firin.Yapilacakisturu = "Fırın yukle";
+						id_yukleHNX = idStringHazirla(3, BAFislem_sirasiLOADHNX, 1, BAFemir_sirasiLOAD, YukleH2Firin.Issuresi, YukleH2Firin.AtmosphereTuru);
+						YukleH2Firin.UniqueID = id_yukleHNX;
+						YukleH2Firin.skor = skorhesapla(YukleH2Firin.UniqueID);
+						//	Console.WriteLine("HNX-RCM" + hnxUygun[MinRow].No);
+						YuklemeIsListe.Add(YukleH2Firin);
+					}
+				}
+			// if(H2Atanacak.Count > 0)
+			// foreach (var item in H2AtanacakBAF)
+			// foreach (Kaidebobin kb in item.List)
 
 
 			List<Kaidebobin> H2ResultRCM = KaideBobinListesi.Where(o => o.ProgramNumber >= 180 && o.ProgramNumber <= 190).ToList();

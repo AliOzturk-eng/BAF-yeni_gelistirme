@@ -15,10 +15,9 @@ namespace Tavlama
         private bool vinc3_on = true;
 
 
-
         private int timelimit = 30;
-        private int min_kolon = 1;
-        private int max_kolon = 26;
+        private int min_kolon;
+        private int max_kolon;
         private int vinc2_ilkkonum;
         private int vinc3_ilkkonum;
         private int[,] vinc_sinirlar = null;
@@ -30,16 +29,29 @@ namespace Tavlama
 
         private int eniyi_kactane = 3;
         private Dictionary<Durum, Yapilacak> cevap;
-        public Solution(List<IsemriL> isemriTable)
+        private Dictionary<IsemriL, string> Predecessor;
+        public Solution(List<IsemriL> isemriTable, int min_kolon, int max_kolon)
         {
-
+            this.min_kolon = min_kolon;
+            this.max_kolon = max_kolon;
             // IsEmriTable == problem.list (gerek var mı? extra memory?)
             this.IsemriTable = isemriTable;
             vinc_sinirlar = new int[2, 2] { { 1, (max_kolon - 2) }, { 2, max_kolon } };
             vinc2_ilkkonum = this.min_kolon;
             vinc3_ilkkonum = this.max_kolon;
             SkorlariTersCevir();
+            PredecessorOlustur();
+            PredecessorYazdir();
         }
+
+        private void PredecessorYazdir()
+        {
+            foreach(var r in Predecessor.Keys)
+            {
+                Console.WriteLine(r.UniqueID + "->" + Predecessor[r]);
+            }
+        }
+
         public void SkorlariTersCevir()
         {
             double maxSkor = 0;
@@ -134,7 +146,7 @@ namespace Tavlama
         private double RecursiveFun(Durum baslangicDurumu, string V2SonIs, string V3SonIs)
         {
             //asagidaki is emirlerini iceren her durum icin, sirada hangi islere bakacagini ve skorlarini raporlar
-            string[] incelenecekListe = { "30010101020H2" , "60020101020H2", "60010101020H2", "70020102020H2", "70010102020H2", "80020103040H2", "80010103040H2", "80020104040H2", "80010104040H2", "80020105040H2", "80010105040H2", "60030101020HNX", "70030102020HNX" };// "60020101020H2", "60010101020HNX", "70020102020H2", "70020102020H2", "80010103040HNX", "80020103040H2", "80020104040H2" };
+            string[] incelenecekListe = { "60010101020HNX","50020101020H2"};
 
             if (baslangicDurumu.t >= this.timelimit)
             {
@@ -225,11 +237,12 @@ namespace Tavlama
 
             bool enAzBirIsUygun = false;
 
+
             for (int u = 0; u < IsemriTable.Count; u++)
             {
                 // eger is yapilmadiysa, onculeri yapildiysa, zamani geldiyse
                 //!!! MUTLAKA EKLE : Alternatifinin oncusu yapilmadiysa... 
-                if (DoesNotInclude(islistesi, IsemriTable[u].UniqueID) && onculertamam(IsemriTable[u].UniqueID, islistesi) && tnow >= IsemriTable[u].IntZaman)
+                if (DoesNotInclude(islistesi, IsemriTable[u].UniqueID) && onculersaglandi(IsemriTable[u], islistesi) && tnow >= IsemriTable[u].IntZaman)
                 {
                     enAzBirIsUygun = true;
                     detay YAPANVINCdetay = new detay();
@@ -553,33 +566,80 @@ namespace Tavlama
             return !hasit;
         }
 
-        private bool onculertamam(String v, string[] islistesi)
+        private bool onculersaglandi(IsemriL isemriL, string[] islistesi)
         {
-            bool sonuc = false;
-            string islem = islemID(v);
-            int sirasi = siraID(v);
-            string tipi = tipID(v);
-
-            if (sirasi == 1)
+            if (Predecessor.ContainsKey(isemriL))
             {
-                sonuc = true;
+                string oncu = Predecessor[isemriL];
+                if (oncu is null)
+                    return true;
+                else
+                    return islistesi.Contains(oncu);
             }
             else
-            {
-                foreach (string k in islistesi)
-                {
-                    string islemK = islemID(k);
-                    int sirasiK = siraID(k);
-                    string tipiK = tipID(k);
+                return true;
+        }
 
-                    if (islemK.Equals(islem) && tipiK.Equals(tipi) && sirasiK == sirasi - 1)
+        private void PredecessorOlustur()
+        {
+            this.Predecessor = new Dictionary<IsemriL, string>();
+
+            foreach (var vrow in this.IsemriTable)
+            {
+                string v = vrow.UniqueID;
+             
+                string islem = islemID(v);
+                int sirasi = siraID(v);
+                string tipi = tipID(v);
+                int agrup = altgrup(v);
+
+                if (sirasi == 1)
+                {
+                    this.Predecessor.Add(vrow, null);
+                }
+                else
+                {
+                    foreach (var krow in this.IsemriTable)
                     {
-                        sonuc = true;
-                        break;
+                        string k = krow.UniqueID;
+                        string islemK = islemID(k);
+                        int sirasiK = siraID(k);
+                        string tipiK = tipID(k);
+                        int agrupk = altgrup(k);
+
+                        if (islemK.Equals(islem) && tipiK.Equals(tipi) && sirasiK == sirasi - 1 && Ustgrup(agrup) == Ustgrup(agrupk))
+                        {
+                            if (vrow.Konum2Kaide == krow.Konum2Kaide || vrow.Konum1Kaide == krow.Konum1Kaide)
+                            {
+                                this.Predecessor.Add(vrow, k);
+                            }
+                        }
                     }
                 }
             }
-            return sonuc;
+        }
+
+        private int Ustgrup(int agrup)
+        {
+            int ug = 0;
+            if (agrup <= 3)
+            {
+                ug = 1;
+            }
+            else if (agrup <= 5)
+            {
+                ug = 2;
+            }
+            else
+            {
+                ug = 3;
+            }
+            return ug;
+        }
+
+        private int altgrup(string v)
+        {
+            return Convert.ToInt32(v.Substring(0, 1)); // ilk digit
         }
 
         private string tipID(string v)
